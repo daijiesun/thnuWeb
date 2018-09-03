@@ -1,103 +1,97 @@
 <template>
-    <div class="admin container-fluid">
-        <!-- 顶部栏 -->
-        <nav class="top_nav navbar navbar-inverse navbar-fixed-top">
+    <div class="admin">
+        <!-- 顶部 -->
+        <nav class="navbar navbar-inverse ">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="">
-                    <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button> -->
-                    <router-link :to="{name: 'Admin'}" class="navbar-brand">
-                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> 后台管理</router-link>
+                <!-- 主页 -->
+                <a class="navbar-brand" href="#">Brand</a>
+                <!-- 个人信息框 -->
+                <div class="right_bar">
+                    <div class="dropdown .dropdown-menu-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                            admin
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">修改信息</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">退出登录</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">admin
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="#">个人中心</a>
-                                </li>
-                                <li>
-                                    <a href="#">切换账号</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="#">退出</a>
-                                </li>
-                            </ul>
+            </div>
+
+        </nav>
+        <!-- 下面部分 -->
+        <div class="container-fluid">
+            <div class="row">
+                <!-- 左侧导航栏 -->
+                <aside class="admin_aside col-sm-3 col-md-2 sidebar">
+                    <ul class="aside_active nav nav-sidebar">
+                        <li >
+                            <a href="#">Overview</a>
+                        </li>
+                        <li>
+                            <a href="#">Reports</a>
+                        </li>
+                        <li>
+                            <a href="#">Analytics</a>
+                        </li>
+                        <li>
+                            <a href="#">Export</a>
                         </li>
                     </ul>
-                </div>
-                <!-- /.navbar-collapse -->
+                </aside>
+                <!-- 右侧内容区域 -->
+                <section class="admin_content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+                </section>
             </div>
-            <!-- /.container-fluid -->
-        </nav>
-        <!-- 左侧菜单栏 -->
-        <aside class="aside_nav">
-            haha
-        </aside>
-        <!-- 右侧内容区域 -->
-        <div class="content">
-            ddfasdfasdf
         </div>
     </div>
 </template>
 <script>
-export default {
-    mounted() {}
-};
+export default {};
 </script>
 <style lang="less" scoped>
-* {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
+@charset "UTF-8";
+// 顶部栏
 .admin {
-    // position: relative;
+    .admin_center {
+        float: right;
+        left: 10px;
+        top: 10px;
+    }
+    .right_bar {
+        padding-right: 20px;
+        padding-top: 10px;
+        float: right;
+    }
 }
-//顶部栏
-.top_nav {
+//左边菜单栏
+.admin_aside {
     position: fixed;
-    // top: 0,
-    // left: 0;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
 }
-
-// 左侧导航栏
-.aside_nav {
-    padding-top: 70px;
-    float: left;
-    height: 1000px;
-    // position: absolute;
-    width: 200px;
-    background-color: #ccc;
-    ul {
-        cursor: pointer;
-    }
-    ul .menuGroup {
-        // height: 30px;
-        text-align: center;
-        line-height: 30px;
-        font-size: 16px;
-        border-bottom: 1px solid #333;
-        padding: 10px 0;
-    }
+.aside_active li:hover{
+    color: #eee;
+    background-color: black;
 }
-
-// 右侧内容
-.content {
-    background-color: #c3c3c3;
-    // width: 100%;
-    overflow: hidden;
-    padding-top: 70px;
+// 右边内容
+.admin_content {
+    padding: 20px;
 }
-
 </style>
+

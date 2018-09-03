@@ -1,6 +1,10 @@
 .DS_Store
 node_modules/
 /dist/
+
+/src/admin/components/hello.vue
+/src/admin/components/test.vue
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -12,3 +16,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
