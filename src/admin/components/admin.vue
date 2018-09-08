@@ -4,7 +4,7 @@
         <nav class="navbar navbar-inverse ">
             <div class="container-fluid">
                 <!-- 主页 -->
-                <a class="navbar-brand" href="#">Brand</a>
+                <span class="navbar-brand" style="color: #fff" href="#">后台管理系统</span>
                 <!-- 个人信息框 -->
                 <div class="right_bar">
                     <div class="dropdown .dropdown-menu-right">
@@ -33,10 +33,10 @@
                 <aside class="admin_aside col-sm-3 col-md-2 sidebar">
                     <ul class="aside_active nav nav-sidebar">
                         <li >
-                            <a href="#">Overview</a>
+                            <a href="#">用户管理</a>
                         </li>
                         <li>
-                            <a href="#">Reports</a>
+                            <a href="#">公告管理</a>
                         </li>
                         <li>
                             <a href="#">Analytics</a>
@@ -83,10 +83,10 @@ export default {};
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f5f5f5;
-    border-right: 1px solid #eee;
+    border-right: 1px solid #ccc;
 }
 .aside_active li:hover{
-    color: #eee;
+    color: #ccc;
     background-color: black;
 }
 // 右边内容
