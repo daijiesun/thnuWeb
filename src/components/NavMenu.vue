@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-import Admin from '../admin/components/admin.vue'
+import Admin from '../admin/components/Admin.vue'
 import Test from '../admin/components/test.vue'
 export default {
     components: {
