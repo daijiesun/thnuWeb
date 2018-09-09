@@ -5,6 +5,7 @@ class Admin {
   constructor() {
     //构造方法
   }
+  //管理员注册
   async adminRegist(req, res, next) {
     //获取注册信息
     const body = req.body
@@ -32,7 +33,47 @@ class Admin {
         message: err
       })
     }
+  }
 
+  // 管理员登录
+  async adminLogin(req, res, next) {
+    const body = req.body
+    const admin = await AdminModels.findOne(body)
+    if (admin) {
+      await AdminModels.updateOne({
+        _id: admin._id
+      }, {
+        $set: {
+          login: true
+        }
+      })
+      req.session.admin = admin,
+        res.send({
+          status: 'success',
+          message: '登录成功'
+        })
+    } else {
+      res.send({
+        status: 'error',
+        message: '账号或密码错误'
+      })
+    }
+  }
+
+  //管理员退出
+ async adminLogout(req, res, next) {
+    await AdminModels.updateOne({
+      _id: req.session.admin._id
+    }, {
+      $set: {
+        login: false
+      }
+    })
+    req.session.admin = null
+    res.send({
+      status: 'success',
+      message: '退出成功'
+    })
   }
 }
 

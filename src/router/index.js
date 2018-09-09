@@ -8,6 +8,7 @@ import UserManage from '@/admin/components/UserManage.vue'
 Vue.use(Router)
 
 export default new Router({
+  // mode: 'history',
   routes: [{
       path: '/',
       name: 'HelloWorld',
@@ -18,7 +19,7 @@ export default new Router({
       name: 'Admin',
       component: Admin,
       children: [{
-        path: 'usermanage',
+        path: 'userManage',
         name: 'UserManage',
         component: UserManage
       }, ]

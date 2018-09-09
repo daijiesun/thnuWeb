@@ -7,14 +7,19 @@ import $ from 'jquery'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+import store from './store'
 Vue.prototype.axios = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+Vue.filter('timeFormat', value => {
+  // return value +'time'
+})
 new Vue({
   el: '#app',
   router,
   axios,
+  store,
   components: { App },
   template: '<App/>'
 })
