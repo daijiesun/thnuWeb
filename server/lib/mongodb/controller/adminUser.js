@@ -6,7 +6,7 @@ class Admin {
     //构造方法
   }
   //管理员注册
-  async adminRegist(req, res, next) {
+  async adminRegister(req, res, next) {
     //获取注册信息
     const body = req.body
     // console.log("the new admin:" + body.adminName)

@@ -10,43 +10,56 @@ const session = require('express-session')
 const mongo = require('./config/db')
 //导入路由
 const router = require('./routes/router')
+//处理路由模式（history）的中间件
+const history = require('connect-history-api-fallback')
 
 //连接数据库
 mongo.connect();
 
 //跨域访问
 app.use("*", function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    if (req.method === 'OPTIONS') {
-      res.send(200)
-    } else {
-      next()
-    }
-  });
-  //配置模板引擎和body-parser一定要在app.use(router)挂载路由之前
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  if (req.method === 'OPTIONS') {
+    res.send(200)
+  } else {
+    next()
+  }
+});
+//配置模板引擎和body-parser一定要在app.use(router)挂载路由之前
 //处理表单数据
-app.use(bodyParser.json())//处理json
-app.use(bodyParser.urlencoded({extended: false}))//中间件
+app.use(bodyParser.json()) //处理json
+app.use(bodyParser.urlencoded({
+  extended: false
+})) //中间件
 
 //配置session中间件
 app.use(session({
-    secret: 'youlike',
-    resave: false,
-    saveUninitialized: true, //默认分配session密钥
-    cookie: {maxAge: 1000*60*60*24*30} //session保存的时间，单位是ms
+  secret: 'youlike',
+  resave: false,
+  saveUninitialized: true, //默认分配session密钥
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 30
+  } //session保存的时间，单位是ms
 }))
+//使用hostory路由模式
+app.use(history({
+  rewrites: [{
+    from: /\/admin/,
+    to: '/index.html'
+  }]
 
+}))
 app.use(router)
 
-app.use(function(err,req,res,next){
-    var err = new Error('not found')
-    err.status = 404
-    next(err)
+app.use(function (err, req, res, next) {
+  var err = new Error('not found')
+  err.status = 404
+  next(err)
 })
 // app.use('/public',express.static('public'))
 //静态文件路径
-// app.use(express.static(path.join(__dirname,'dist')))
+app.use(express.static(path.join(__dirname, 'dist')))
 app.listen(80)
 console.log('server success listen to port:80')

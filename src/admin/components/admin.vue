@@ -5,7 +5,7 @@
         </div>
         <div class="admin_is_login" v-else>
             <!-- 顶部 -->
-            <nav class="navbar navbar-inverse ">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
                     <!-- 主页 -->
                     <span class="navbar-brand" style="color: #fff" href="#">后台管理系统</span>
@@ -39,7 +39,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title aside_active_cancel">
-                                        <span data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <span class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                             用户管理
                                         </span>
                                     </h4>
@@ -138,29 +138,40 @@
 </template>
 <script>
 import UserManage from "./UserManage.vue";
+import AddUser from "./AddUser.vue";
 import crypto from "../../../tools/crypto.js";
-import Login from "./Login.vue"
+import Login from "./Login.vue";
 import { mapGetters, mapState, mapActions } from "vuex";
 export default {
     data() {
         return {
-            loginTime: "2018/9/8--17:00",
+            loginTime: "2018/9/8--17:00"
         };
     },
-    watch:{
-        admin: function(){
-           var date = new Date()
-           var year = date.getFullYear()
-           var month = date.getMonth() + 1
-           var day = date.getDate()
-           var hours = date.getHours()
-           var minutes = date.getMinutes()
-           this.loginTime = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes
+    watch: {
+        admin: function() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            this.loginTime =
+                year +
+                "/" +
+                (month = month >= 10 ? month : "0" + month) +
+                "/" +
+               (day = day >= 10 ? day : "0" + day) +
+                " " +
+                (hours = hours >= 10 ? hours : "0" + hours) +
+                ":" +
+                (minutes = minutes >= 10 ? minutes : "0" + minutes);
         }
     },
     components: {
         UserManage,
-        Login
+        Login,
+        AddUser
     },
     computed: {
         ...mapGetters({
@@ -171,47 +182,21 @@ export default {
         this.$store.dispatch("admin/getAdminSession");
     },
     methods: {
-        logout: function(){
-            this.axios('/admin/logout').then( response =>{
-                console.log("退出成功")
-                window.location='/'
-            }).catch( err => {
-                console.log(err)
-            })
+        logout: function() {
+            this.axios("/admin/logout")
+                .then(response => {
+                    console.log("退出成功");
+                    window.location = "/";
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 };
 </script>
 <style lang="less" scoped>
 @charset "UTF-8";
-//登录页面样式
-// .admin_not_login {
-//     position: fixed;
-//     background: url("/static/bgc_login_admin.jpg") no-repeat center center;
-//     background-size: cover;
-//     top: 0;
-//     bottom: 0;
-//     left: 0;
-//     right: 0;
-// }
-// .admin_login_form {
-//     margin-top: 100px;
-// }
-// .admin_login_form label {
-//     color: #2c5f8d;
-//     font-size: 16px;
-// }
-// .admin_not_login h2 {
-//     color: #2c5f8d;
-//     text-align: center;
-// }
-// .admin_not_login input {
-//     margin-bottom: 20px;
-// }
-// .admin_not_login button {
-//     margin-top: 40px;
-// }
-
 //登录后的页面样式
 // 顶部栏
 .admin {
@@ -229,6 +214,7 @@ export default {
 //左边菜单栏
 .admin_aside {
     position: fixed;
+    text-align: center;
     top: 51px;
     bottom: 0;
     left: 0;
@@ -240,6 +226,9 @@ export default {
     background-color: #4b4b5f;
     border-right: 1px solid #ccc;
 }
+ul {
+    -webkit-padding-start: 0px;
+}
 //鼠标经过的样式修改
 .aside_active_cancel a,
 .aside_active_cancel li {
@@ -248,6 +237,7 @@ export default {
     list-style: none;
     color: #000;
     font-size: 16px;
+    text-align: center;
 }
 .aside_active_cancel li {
     padding-top: 5px;
@@ -256,7 +246,7 @@ export default {
     cursor: pointer;
 }
 .aside_active_cancel li a:hover {
-    color: blue;
+    background-color: #eee;
 }
 .aside_active li:hover {
     text-decoration: none;
@@ -264,13 +254,14 @@ export default {
 
 // 右边内容
 .admin_content {
-    padding: 10px 30px;
+    padding: 70px 0px 10px;
 }
 .admin_content_top {
-    background-color: pink;
+    // background-color: pink;
     font-size: 20px;
     line-height: 20px;
-    padding: 5px auto;
+    padding: 0 auto;
+    margin-bottom: 10px;
     text-align: center;
 }
 </style>
