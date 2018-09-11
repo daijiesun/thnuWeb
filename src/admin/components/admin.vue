@@ -9,6 +9,11 @@
                 <div class="container-fluid">
                     <!-- 主页 -->
                     <span class="navbar-brand" style="color: #fff" href="#">后台管理系统</span>
+                    <button type="button" class="navbar-toggle" id="control_button" @click="toggleOwn">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <!-- 个人信息框 -->
                     <div class="right_bar">
                         <div class="dropdown .dropdown-menu-right">
@@ -34,7 +39,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <!-- 左侧导航栏 -->
-                    <aside class="admin_aside col-xs-3 col-sm-3 col-md-2">
+                    <aside class="admin_aside hidden-xs col-sm-3 col-md-2" id="control_by">
                         <ul class="aside_active nav nav-sidebar panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -127,7 +132,7 @@
                         </ul>
                     </aside>
                     <!-- 右侧内容区域 -->
-                    <section class="admin_content col-xs-9 col-xs-offset-3 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+                    <section class="admin_content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="admin_content" @click="clickContent">
                         <div class="admin_content_top">当前用户：{{admin.adminName}}，登录时间：{{loginTime }}</div>
                         <router-view/>
                     </section>
@@ -161,7 +166,7 @@ export default {
                 "/" +
                 (month = month >= 10 ? month : "0" + month) +
                 "/" +
-               (day = day >= 10 ? day : "0" + day) +
+                (day = day >= 10 ? day : "0" + day) +
                 " " +
                 (hours = hours >= 10 ? hours : "0" + hours) +
                 ":" +
@@ -176,12 +181,25 @@ export default {
     computed: {
         ...mapGetters({
             admin: "admin/getAdminInfo"
-        })
+        }),
     },
     mounted() {
         this.$store.dispatch("admin/getAdminSession");
     },
     methods: {
+        toggleOwn: function() {
+            $(function() {
+                $("#control_by").toggleClass("hidden-xs");
+                console.log("切换");
+            });
+        },
+        clickContent: function(){
+            var hidden =  $("#control_by").hasClass("hidden-xs");
+            if(!hidden){
+                 $("#control_by").addClass("hidden-xs");
+                 console.log("移除");
+            }
+        },
         logout: function() {
             this.axios("/admin/logout")
                 .then(response => {
@@ -197,6 +215,10 @@ export default {
 </script>
 <style lang="less" scoped>
 @charset "UTF-8";
+.admin {
+    margin-top: 54px;
+    min-width: 333px;
+}
 //登录后的页面样式
 // 顶部栏
 .admin {
@@ -206,8 +228,8 @@ export default {
         top: 10px;
     }
     .right_bar {
-        padding-right: 40px;
-        padding-top: 10px;
+        padding-top: 8px;
+        padding-right: 2px;
         float: right;
     }
 }
@@ -229,7 +251,7 @@ export default {
 ul {
     -webkit-padding-start: 0px;
 }
-//鼠标经过的样式修改
+//鼠标经过导航栏的样式
 .aside_active_cancel a,
 .aside_active_cancel li {
     display: block;
@@ -252,15 +274,14 @@ ul {
     text-decoration: none;
 }
 
-// 右边内容
+// 右边主体内容
 .admin_content {
-    padding: 70px 0px 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 .admin_content_top {
-    // background-color: pink;
-    font-size: 20px;
-    line-height: 20px;
-    padding: 0 auto;
+    font-size: 18px;
+    line-height: 18px;
     margin-bottom: 10px;
     text-align: center;
 }

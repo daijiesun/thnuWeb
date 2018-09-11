@@ -6,8 +6,16 @@
             <input type="text" id="adminName" class="form-control btn-lg" placeholder="管理员名" autofocus autocomplete="on" v-model="loginForm.adminName">
             <label for="inputPassword">密码</label>
             <input type="password" id="inputPassword" class="form-control btn-lg" placeholder="管理员密码" v-model="loginForm.password">
-            <button class="btn btn-lg btn-primary btn-block" @click="adminLogin">登录</button>
+            <button class="btn btn-lg btn-primary btn-block" @click="adminLogin" data-toggle="modal" data-target=".bs-example-modal-sm">登录</button>
         </form>
+        <!-- <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <h4 class="modal_title">提示信息</h4>
+                    <p id="modal_content"></p>
+                </div>
+            </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -24,24 +32,24 @@ export default {
     methods: {
         adminLogin: function() {
             if (this.loginForm.adminName && this.loginForm.password) {
-                this.loginForm.password = crypto(this.loginForm.password);
-                console.log(this.loginForm.password);
+                const userObj = this.loginForm
+                userObj.password = crypto(userObj.password);
                 this.axios
-                    .post("/admin/login", this.loginForm)
+                    .post("/admin/login", userObj)
                     .then(response => {
                         if (response.data.status == "success") {
                             //登录成功
-                            console.log("登录成功");
                             this.$store.dispatch("admin/getAdminSession");
-                        }else{
-                            console.log("账号或密码错误")
+                        } else {
+                            // $("#modal_content").text(response.data.message);
+                            console.log("账号密码错误");
                         }
                     })
                     .catch(err => {
                         console.log(err);
                     });
             } else {
-                console.log("输入错误");
+                // $("#modal_content").text("输入有误，请重新输入");
             }
             this.loginTime = Date.now();
         }

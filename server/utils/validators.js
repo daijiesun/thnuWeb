@@ -5,7 +5,7 @@ function isEmail(email) {
 }
 
 function isUserName(name) {
-  return name && name.length > 2 && name.length < 20
+  return name && name.length >=2 && name.length < 20
 }
 
 function isPassword(password) {

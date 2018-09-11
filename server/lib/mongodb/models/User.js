@@ -7,7 +7,7 @@ const date = function(){
   var day = date.getDate()
   var hours = date.getHours()
   var minutes = date.getMinutes()
-  var time = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes+":::"
+  var time = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes
   return time
 }
 
@@ -35,7 +35,7 @@ const userSchema = new Schema({
   //电话
   tel: String,
   //邮箱
-  emial: String,
+  email: String,
   //头像
   avatr:{
     type: String,

@@ -39,7 +39,7 @@ class Admin {
   async adminLogin(req, res, next) {
     const body = req.body
     const admin = await AdminModels.findOne(body)
-    if (admin) {
+    if (!_.isEmpty(admin)) {
       await AdminModels.updateOne({
         _id: admin._id
       }, {

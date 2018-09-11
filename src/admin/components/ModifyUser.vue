@@ -17,7 +17,7 @@
                 <label for="email">邮箱</label>
                 <input type="email" class="form-control" id="email" placeholder="邮箱地址" v-model="registerForm.email">
             </div>
-            <button type="button" class="btn btn-primary" @click="addUser" data-toggle="modal" data-target=".bs-example-modal-sm">添加用户</button>
+            <button type="button" class="btn btn-primary" @click="modifyUser">确认修改</button>
         </form>
     </div>
 </template>
@@ -34,7 +34,7 @@ export default {
         };
     },
     methods: {
-        addUser: function() {
+        modifyUser: function() {
             if (this.registerForm.password != this.registerForm.passwordOk) {
                 alert("两次密码不一样");
                 return;

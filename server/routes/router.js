@@ -19,4 +19,5 @@ router.post('/admin/login',Admin.adminLogin)    //管理员登录
 router.get('/admin/logout',Admin.adminLogout)    //管理员退出
 router.post('/admin/addUser',User.userRegister)  //管理员添加用户
 router.get('/admin/userList',User.getUserList)  //管理员获取用户列表
+router.post('/admin/deleteUser',User.deleteUser)  //管理员删除用户
 module.exports = router
