@@ -35,7 +35,7 @@ export default new Router({
           component: AddUser
         },
         {
-          path:'modifyUser',
+          path:'modifyUser/:id',
           name: 'ModifyUser',
           component: ModifyUser,
         }

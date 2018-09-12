@@ -2,56 +2,75 @@
     <div class="addUser container-fluid row">
         <form>
             <div class="form-group">
-                <label for="userName">用户名</label>
-                <input type="text" class="form-control" id="userName" placeholder="用户名" autofocus v-model="registerForm.userName">
+                <label for="userName">新密码</label>
+                <input type="text" class="form-control" id="userName" placeholder="请输入新密码" autofocus v-model="modifyForm.password">
             </div>
             <div class="form-group">
-                <label for="password">密码</label>
-                <input type="password" class="form-control" id="password" placeholder="密码" v-model="registerForm.password">
+                <label for="email">确认新密码</label>
+                <input type="email" class="form-control" id="email" placeholder="请确认新密码" v-model="modifyForm.passwordOk">
             </div>
-            <div class="form-group">
-                <label for="passwordOk">确认密码</label>
-                <input type="password" class="form-control" id="passwordOk" placeholder="确认密码" v-model="registerForm.passwordOk">
-            </div>
-            <div class="form-group">
-                <label for="email">邮箱</label>
-                <input type="email" class="form-control" id="email" placeholder="邮箱地址" v-model="registerForm.email">
-            </div>
-            <button type="button" class="btn btn-primary" @click="modifyUser">确认修改</button>
+            <button type="button" class="btn btn-primary" @click="modifyPassword">确认修改</button>
         </form>
     </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import userManage from "./UserManage.vue";
 export default {
     data() {
         return {
-            registerForm: {
-                userName: null,
+            modifyForm: {
                 password: null,
-                passwordOk: null,
-                email: null
+                passwordOk: null
             }
         };
     },
+    components: {
+        userManage
+    },
+    // mounted() {
+    //     //获取当前需要修改用户的所有信息
+    //     const id = this.$route.params.id;
+    //     function checkId(item) {
+    //         return (item._id = id);
+    //     }
+    //     this.modifyForm = this.userList.find(checkId);
+    // },
+    computed: {
+        ...mapGetters({
+            userList: "user/getUserList"
+        })
+    },
     methods: {
-        modifyUser: function() {
-            if (this.registerForm.password != this.registerForm.passwordOk) {
-                alert("两次密码不一样");
+        //id: this.$route.params
+        //修改用户
+        modifyPassword: function() {
+            if (this.modifyForm.password !== this.modifyForm.passwordOk) {
+                alert("两次密码不同，请重新输入");
                 return;
+            } else if (
+                !(this.modifyForm.password && this.modifyForm.passwordOk)
+            ) {
+                alert("输入不能为空");
+                return 
             }
-            var userObj = this.registerForm;
-            delete userObj.passwordOk;
+            let passwordObj = {
+                id: this.$route.params.id,
+                password: this.crypto(this.modifyForm.password)
+            };
             this.axios
-                .post("/admin/addUser", userObj)
+                .post("/admin/modifyPassword", passwordObj)
                 .then(response => {
                     if (response.data.status == "success") {
-                        alert("添加成功");
+                        alert("修改成功");
+                        this.$router.push({path: '/admin/userManage'});
                     } else {
                         alert(response.data.message);
                     }
                 })
                 .catch(err => {
                     console.log(err);
+                    this.$router.push({path: '/admin/userManage'});
                 });
         }
     }

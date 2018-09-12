@@ -44,11 +44,11 @@ const actions = {
   },
 
   //获取所有用户信息
-  async getUserList({
+  async getList({
     commit
   }) {
     const list = await axios.get('admin/userList').then(response => {
-      return response.data.userList
+      return response.data.message
     }).catch(err => {
       console.log(err)
     })

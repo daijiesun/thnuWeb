@@ -39,7 +39,12 @@ import ModifyUser from "./ModifyUser.vue";
 import { mapGetters, mapState, mapActions } from "vuex";
 export default {
     data() {
-        return {};
+        return {
+            thisUserList: []
+        };
+    },
+    mounted() {
+        this.$store.dispatch("user/getList");
     },
     comments: {
         ModifyUser
@@ -49,21 +54,6 @@ export default {
             userList: "user/getUserList"
         })
     },
-    mounted() {
-        this.$store.dispatch("user/getUserList");
-    },
-    // created() {
-    //     this.axios
-    //         .get("/admin/userList")
-    //         .then(response => {
-    //             if (response.data.status == "success") {
-    //                 this.userList = response.data.message;
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log("获取列表失败");
-    //         });
-    // },
     methods: {
         removeUser: function(id, index) {
             const result = confirm("确定删除？该操作不可逆");
@@ -88,7 +78,7 @@ export default {
         modifyUser: function(id, index) {
             const result = confirm("您确定要修改该用户信息？");
             if (result) {
-                this.$router.push({ name: "ModifyUser" });
+                this.$router.push({ path: `/admin/ModifyUser/${id}` });
             }
         }
     }

@@ -19,7 +19,6 @@
     </div>
 </template>
 <script>
-import crypto from "../../../tools/crypto.js";
 export default {
     data() {
         return {
@@ -33,7 +32,7 @@ export default {
         adminLogin: function() {
             if (this.loginForm.adminName && this.loginForm.password) {
                 const userObj = this.loginForm
-                userObj.password = crypto(userObj.password);
+                userObj.password = this.crypto(userObj.password);
                 this.axios
                     .post("/admin/login", userObj)
                     .then(response => {
@@ -41,7 +40,6 @@ export default {
                             //登录成功
                             this.$store.dispatch("admin/getAdminSession");
                         } else {
-                            // $("#modal_content").text(response.data.message);
                             console.log("账号密码错误");
                         }
                     })

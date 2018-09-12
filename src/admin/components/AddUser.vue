@@ -38,13 +38,25 @@ export default {
             if (this.registerForm.password != this.registerForm.passwordOk) {
                 alert("两次密码不一样");
                 return;
+            } else if (
+                !(
+                    this.registerForm.password &&
+                    this.registerForm.passwordOk &&
+                    this.registerForm.userName &&
+                    this.registerForm.email
+                )
+            ) {
+                alert("输入内容不能为空");
+                return;
             }
             var userObj = this.registerForm;
             delete userObj.passwordOk;
+            userObj.password = this.crypto(userObj.password);
             this.axios
                 .post("/admin/addUser", userObj)
                 .then(response => {
                     if (response.data.status == "success") {
+                        this.$router.push("userManage");
                         alert("添加成功");
                     } else {
                         alert(response.data.message);

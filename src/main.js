@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import $ from 'jquery'
 import axios from 'axios'
+import crypto from '../tools/crypto'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import store from './store'
 Vue.prototype.axios = axios
+Vue.prototype.crypto = crypto
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

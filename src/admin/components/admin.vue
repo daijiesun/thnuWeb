@@ -153,6 +153,9 @@ export default {
             loginTime: "2018/9/8--17:00"
         };
     },
+    mounted() {
+        this.$store.dispatch("admin/getAdminSession");
+    },
     watch: {
         admin: function() {
             var date = new Date();
@@ -181,10 +184,7 @@ export default {
     computed: {
         ...mapGetters({
             admin: "admin/getAdminInfo"
-        }),
-    },
-    mounted() {
-        this.$store.dispatch("admin/getAdminSession");
+        })
     },
     methods: {
         toggleOwn: function() {
@@ -193,11 +193,11 @@ export default {
                 console.log("切换");
             });
         },
-        clickContent: function(){
-            var hidden =  $("#control_by").hasClass("hidden-xs");
-            if(!hidden){
-                 $("#control_by").addClass("hidden-xs");
-                 console.log("移除");
+        clickContent: function() {
+            var hidden = $("#control_by").hasClass("hidden-xs");
+            if (!hidden) {
+                $("#control_by").addClass("hidden-xs");
+                console.log("移除");
             }
         },
         logout: function() {

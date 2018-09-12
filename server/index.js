@@ -12,7 +12,7 @@ const mongo = require('./config/db')
 const router = require('./routes/router')
 //处理路由模式（history）的中间件
 const history = require('connect-history-api-fallback')
-
+const ipPort = 80
 //连接数据库
 mongo.connect();
 
@@ -61,5 +61,5 @@ app.use(function (err, req, res, next) {
 // app.use('/public',express.static('public'))
 //静态文件路径
 app.use(express.static(path.join(__dirname, 'dist')))
-app.listen(80)
-console.log('server success listen to port:80')
+app.listen(ipPort)
+console.log('server success listen to port:',ipPort)

@@ -90,6 +90,31 @@ class User {
     }
 
   }
+  //修改密码
+  async modifyPassword(req, res, next) {
+    const body = req.body
+    console.log(body)
+    await UserModuls.findByIdAndUpdate({
+      _id: body.id
+    }, {
+      $set: {
+        password: body.password
+      }
+    }, function (err, success) {
+      if (err) {
+        console.log("修改密码错误，数据库返回：" + err)
+        res.send({
+          status: 'error',
+          message: '修改失败，稍后再试'
+        })
+      } else if (success) {
+        res.send({
+          status: 'success',
+          message: '修改成功'
+        })
+      }
+    })
+  }
 }
 
 module.exports = new User()
