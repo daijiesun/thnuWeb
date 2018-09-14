@@ -26,7 +26,7 @@ const mutations = {
   },
   //设置用户列表
   setUserList(state, list) {
-    state.userList = list
+    state.userList = list.reverse()
   }
 }
 

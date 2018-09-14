@@ -1,21 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const date = function(){
-  var date = new Date()
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-  var hours = date.getHours()
-  var minutes = date.getMinutes()
-  var time = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes
-  return time
-}
+const time = require('../../../utils/time')
 
 const userSchema = new Schema({
   //用户名
   userName: {
     type: String,
     required: true
+  },
+  //真实姓名
+  name:{
+    type: String
   },
   //密码
   password: {
@@ -25,7 +20,7 @@ const userSchema = new Schema({
   //创建的日期
   userDate: {
     type: String,
-    default: date()
+    default: time()
   },
   //是否登录
   login: {

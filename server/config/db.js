@@ -15,10 +15,10 @@ const options = {
 exports.connect =function(){
     mongoose.connect(URL,options).then(
         ()=>{
-            console.log("数据库链接成功");
+            console.log("数据库连接成功!!!");
         },
         err =>{
-            console.log("数据库连接失败"+ err);
+            console.log("数据库连接失败!!!"+ err);
         }
     )
 }

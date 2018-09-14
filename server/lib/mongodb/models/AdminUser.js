@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
+const time = require('../../../../tools/time')
 const adminSchema = new Schema({
   //管理员名
   adminName: {
@@ -14,8 +14,8 @@ const adminSchema = new Schema({
   },
   //创建的日期
   adminDate: {
-    type: Date,
-    default: Date.now()
+    type:String,
+    default: time()
   },
   //是否登录
   login: {

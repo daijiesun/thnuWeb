@@ -8,7 +8,7 @@
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
                     <!-- 主页 -->
-                    <span class="navbar-brand" style="color: #fff" href="#">后台管理系统</span>
+                    <router-link :to="'/admin'" class="navbar-brand" style="color: #fff" href="#">后台管理系统</router-link>>
                     <button type="button" class="navbar-toggle" id="control_button" @click="toggleOwn">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -64,9 +64,9 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading aside_active_cancel">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        <router-link :to="'/admin/notice'" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                                             公告管理
-                                        </a>
+                                        </router-link>
                                     </h4>
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse">
@@ -86,16 +86,19 @@
                                     <div class="panel-body aside_active_cancel">
                                         <ul>
                                             <li>
-                                                <a href="#">快递服务管理</a>
+                                                <router-link :to="'/admin/service/expressage'">快递服务管理</router-link>
                                             </li>
                                             <li>
-                                                <a href="#">快递服务管理</a>
+                                                <router-link :to="'/admin/service/lose'">寻物启事管理</router-link>
                                             </li>
                                             <li>
-                                                <a href="#">兼职发布管理</a>
+                                                <router-link :to="'/admin/service/job'">兼职发布管理</router-link>
                                             </li>
                                             <li>
-                                                <a href="#">商品管理管理</a>
+                                                <router-link :to="'/admin/service/goods'">二手商品管理</router-link>
+                                            </li>
+                                            <li>
+                                                <router-link :to="'/admin/service/sport'">校园活动管理</router-link>
                                             </li>
                                         </ul>
                                     </div>
@@ -114,16 +117,10 @@
                                     <div class="panel-body aside_active_cancel">
                                         <ul>
                                             <li>
-                                                <a href="#">表白墙管理</a>
+                                                <router-link :to="'/admin/gossip/love'">表白墙管理</router-link>
                                             </li>
                                             <li>
-                                                <a href="#">趣事管理</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">贴吧管理</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">新闻管理</a>
+                                                <router-link :to="'/admin/gossip/fun'">趣事管理</router-link>
                                             </li>
                                         </ul>
                                     </div>
@@ -133,8 +130,10 @@
                     </aside>
                     <!-- 右侧内容区域 -->
                     <section class="admin_content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="admin_content" @click="clickContent">
-                        <div class="admin_content_top">当前用户：{{admin.adminName}}，登录时间：{{loginTime }}</div>
-                        <router-view/>
+                        <transition name="component-fade" mode="out-in">
+                            <AdminIndex v-if="this.$route.path == '/admin'"/>
+                            <router-view/>
+                        </transition>
                     </section>
                 </div>
             </div>
@@ -142,6 +141,7 @@
     </div>
 </template>
 <script>
+import AdminIndex from "./AdminIndex.vue";
 import UserManage from "./UserManage.vue";
 import AddUser from "./AddUser.vue";
 import crypto from "../../../tools/crypto.js";
@@ -150,36 +150,16 @@ import { mapGetters, mapState, mapActions } from "vuex";
 export default {
     data() {
         return {
-            loginTime: "2018/9/8--17:00"
         };
     },
     mounted() {
         this.$store.dispatch("admin/getAdminSession");
     },
-    watch: {
-        admin: function() {
-            var date = new Date();
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var day = date.getDate();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            this.loginTime =
-                year +
-                "/" +
-                (month = month >= 10 ? month : "0" + month) +
-                "/" +
-                (day = day >= 10 ? day : "0" + day) +
-                " " +
-                (hours = hours >= 10 ? hours : "0" + hours) +
-                ":" +
-                (minutes = minutes >= 10 ? minutes : "0" + minutes);
-        }
-    },
     components: {
         UserManage,
         Login,
-        AddUser
+        AddUser,
+        AdminIndex
     },
     computed: {
         ...mapGetters({
@@ -215,6 +195,16 @@ export default {
 </script>
 <style lang="less" scoped>
 @charset "UTF-8";
+//过度动画
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+}
+
+//样式
 .admin {
     margin-top: 54px;
     min-width: 333px;

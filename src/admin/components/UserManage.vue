@@ -1,32 +1,35 @@
 <!--用户管理模块-->
 <template>
     <div class="container-fluid">
-        <table id="my_table" class="table table-striped table-hover" v-if="userList">
-            <thead>
-                <tr>
-                    <td>序号</td>
-                    <td>用户名</td>
-                    <td>邮箱</td>
-                    <td>创建时间</td>
-                    <td>删除</td>
-                    <td>修改</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item,index) in this.userList" :key="item._id">
-                    <td>{{index+1}}</td>
-                    <td>{{item.userName}}</td>
-                    <td>{{item.email}}</td>
-                    <td>{{item.userDate}}</td>
-                    <td @click="removeUser(item._id,index)">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </td>
-                    <td @click="modifyUser(item._id,index)">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <h4 class="text-primary">用户管理 > 用户列表 </h4>
+        <div class="table-responsive" v-if="userList">
+            <table id="my_table" class="table table-striped table-hover">
+                <thead class="text-primary">
+                    <tr>
+                        <td>序号</td>
+                        <td>用户名</td>
+                        <td>邮箱</td>
+                        <td>创建时间</td>
+                        <td>删除</td>
+                        <td>修改</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in this.userList" :key="item._id">
+                        <td>{{index+1}}</td>
+                        <td>{{item.userName}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.userDate}}</td>
+                        <td @click="removeUser(item._id,index)">
+                            <span class="pointer glyphicon glyphicon-trash"></span>
+                        </td>
+                        <td @click="modifyUser(item._id,index)">
+                            <span class="pointer glyphicon glyphicon-pencil"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="no_user container-fluid" v-else>
             <div class="title">
                 <h1>客官，正在加载中！</h1>
@@ -65,7 +68,6 @@ export default {
                         if (response.data.status == "success") {
                             //删除本地数据，不用刷新就更新数据
                             this.userList.splice(index, 1);
-                            alert(response.data.message);
                         } else {
                             alert(response.data.message);
                         }
@@ -85,6 +87,10 @@ export default {
 };
 </script>
 <style scoped>
+h4 {
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+}
 .my_show {
     display: none;
 }
@@ -92,6 +98,9 @@ export default {
     color: dodgerblue;
     padding-top: 30px;
     text-align: center;
+}
+.pointer:hover {
+    cursor: pointer;
 }
 </style>
 

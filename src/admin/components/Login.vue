@@ -31,7 +31,7 @@ export default {
     methods: {
         adminLogin: function() {
             if (this.loginForm.adminName && this.loginForm.password) {
-                const userObj = this.loginForm
+                const userObj = this.loginForm;
                 userObj.password = this.crypto(userObj.password);
                 this.axios
                     .post("/admin/login", userObj)
@@ -40,7 +40,7 @@ export default {
                             //登录成功
                             this.$store.dispatch("admin/getAdminSession");
                         } else {
-                            console.log("账号密码错误");
+                            alert("账号密码错误");
                         }
                     })
                     .catch(err => {
@@ -57,7 +57,8 @@ export default {
 <style scoped>
 .admin_not_login {
     position: fixed;
-    background: url("/static/bgc_login_admin.jpg") no-repeat center center;
+    background: url("/static/images/bgc_login_admin.jpg") no-repeat center
+        center;
     background-size: cover;
     top: 0;
     bottom: 0;

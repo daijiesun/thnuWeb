@@ -28,7 +28,6 @@ class User {
   async userRegister(req, res, next) {
     const body = req.body
     //先验证
-    console.log(body);
     const err = checkFormData(body)
     if (err) {
       //存在错误，直接返回
