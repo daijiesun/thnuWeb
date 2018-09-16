@@ -46,12 +46,12 @@ export default {
         //修改用户
         modifyPassword: function() {
             if (this.modifyForm.password !== this.modifyForm.passwordOk) {
-                alert("两次密码不同，请重新输入");
+                 this.$toast.center("两次密码不同，请重新输入");
                 return;
             } else if (
                 !(this.modifyForm.password && this.modifyForm.passwordOk)
             ) {
-                alert("输入不能为空");
+                 this.$toast.center("输入不能为空");
                 return 
             }
             let passwordObj = {
@@ -62,10 +62,10 @@ export default {
                 .post("/admin/modifyPassword", passwordObj)
                 .then(response => {
                     if (response.data.status == "success") {
-                        alert("修改成功");
+                         this.$toast.center("修改成功");
                         this.$router.push({path: '/admin/userManage'});
                     } else {
-                        alert(response.data.message);
+                         this.$toast.center(response.data.message);
                     }
                 })
                 .catch(err => {

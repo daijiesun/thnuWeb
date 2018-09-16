@@ -35,7 +35,7 @@ const actions = {
   async getUserSession({
     commit
   }) {
-    const data = await axios.get('user/session').then(function (response) {
+    const data = await axios.get('user/session').then((response) => {
       return response.data.userInfo
     }).catch(err => {
       console.log(err)
@@ -52,7 +52,7 @@ const actions = {
     }).catch(err => {
       console.log(err)
     })
-    commit('setUserList',list)
+    commit('setUserList', list)
   }
 }
 

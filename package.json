@@ -13,8 +13,10 @@
     "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.3.1",
+    "v-uploader": "^1.8.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue2-toast": "^2.0.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -48,6 +50,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "v-gallery": "^1.2.4",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",

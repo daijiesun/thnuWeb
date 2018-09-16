@@ -1,232 +1,117 @@
 <template>
-    <div class="thnu_bottom row container-fluid">
-        <!-- 兼职入口 -->
-        <div class="thnu_job col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <h4>找兼职？点这里
-                <span class="glyphicon glyphicon-hand-down"></span>
-            </h4>
-            <div>
-                <section class="thnu_job_link">
-                    <a href="#" class=""><img :src="this.jobList[0].images[0].url" alt="" class="img-rounded">
-                        <div class="describe pull-left">
-                            <h6>工作内容：
-                                <small>{{this.jobList[0].title}}</small>
-                            </h6>
-                            <h6>地点：
-                                <small>{{this.jobList[0].location}}</small>
-                            </h6>
-                        </div>
-                        <div class="describe pull-right">
-                            <h6>描述：
-                                <small>{{this.jobList[0].describe}}</small>
-                            </h6>
-                            <h6>联系电话：
-                                <small>{{this.jobList[0].phone}}</small>
-                            </h6>
-                        </div>
-                    </a>
-                </section>
+    <div class="add_exp container-fluid">
+        <h2 class="">添加我的快递单</h2>
+        <form>
+            <div class="form-group">
+                <label for="name" class="">您的真实姓名</label>
+                <input type="text" class="form-control" id="name" v-model="formData.name" placeholder="请认真填写，保证能拿到快递" required autofocus/>
             </div>
-        </div>
-        <!-- 二手入口 -->
-        <div class="thnu_goods col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <h4>闲置？点这里
-                <span class="glyphicon glyphicon-hand-down"></span>
-            </h4>
-            <section class="thnu_goods_link ">
-                <a href="#" class=""><img :src="this.goodsList[0].images[0].url" alt="" class="img-thumbnail">
-                    <div class="describe pull-left">
-                        <h6>物品名称：
-                            <small>{{this.goodsList[0].goodsName}}</small>
-                        </h6>
-                        <h6>描述：
-                            <small>{{this.goodsList[0].describe}}</small>
-                        </h6>
-                    </div>
-                    <div class="describe pull-right">
-                        <h6>价格：
-                            <small>{{this.goodsList[0].price}}</small>
-                        </h6>
-                        <h6>联系电话：
-                            <small>{{this.goodsList[0].phone}}</small>
-                        </h6>
-                    </div>
-                </a>
-            </section>
-        </div>
-        <!-- 活动入口 -->
-        <div class="thnu_club col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <h4>校园活动
-                <span class="glyphicon glyphicon-glass"></span>
-            </h4>
-            <section class="thnu_club_link">
-                <a href="#" class=""><img :src="this.clubList[0].images[0].url" alt="" class="img-thumbnail">
-                    <div class="describe pull-left">
-                        <h6>活动名称：
-                            <small>{{this.clubList[0].clubName}}</small>
-                        </h6>
-                        <h6>描述：
-                            <small>{{this.clubList[0].describe}}</small>
-                        </h6>
-                    </div>
-                    <div class="describe pull-right">
-                        <h6>时间：
-                            <small>{{this.clubList[0].time}}</small>
-                        </h6>
-                        <h6>地点：
-                            <small>{{this.clubList[0].location}}</small>
-                        </h6>
-                    </div>
-                </a>
-            </section>
-        </div>
-        <!-- 风景入口 -->
-        <div class="thnu_scenery col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <h4>校园风景
-                <span class="glyphicon glyphicon-camera"></span>
-            </h4>
-            <section class="thnu_scenery_link">
-                <a href="#" class="">
-                    <img :src="this.sceneryList[0].images[0].url" alt="" class="img-rounded" />
-                    <div class="describe pull-left">
-                        <h6>景点名称：
-                            <small>{{this.sceneryList[0].title}}</small>
-                        </h6>
-                        <h6>描述：
-                            <small>{{this.sceneryList[0].describe}}</small>
-                        </h6>
-                    </div>
-                </a>
-            </section>
-        </div>
+            <div class="form-group">
+                <label for="order" class="">您的快递单号</label>
+                <input type="text" class="form-control" id="order" v-model="formData.order" placeholder="请正确填写您的快递单号（取件码）" required/>
+            </div>
+            <div class="form-group">
+                <label for="tel" class="">您的联系方式</label>
+                <input type="text" class="form-control" id="tel" v-model="formData.tel" placeholder="请认真填写联系方式" required/>
+            </div>
+            <div class="form-group">
+                <label for="money" class="">你能给的报酬</label>
+                <input type="text" class="form-control" id="money" v-model="formData.money" placeholder="给多少钱" required/>
+            </div>
+            <div class="form-group">
+                <label for="type" class="">快递的大小</label>
+                <input type="text" class="form-control" id="type" v-model="formData.type" placeholder="（大/小）或者（简单描述）" required/>
+            </div>
+            <div class="form-group">
+                <label for="getLocation" class="">您的快递所在地址</label>
+                <input type="text" class="form-control" id="getLocation" v-model="formData.getLocation" placeholder="请认真填写，保证能拿到快递" required />
+            </div>
+            <div class="form-group">
+                <label for="putLocation" class="">您的收件地址</label>
+                <input type="text" class="form-control" id="putLocation" v-model="formData.putLocation" placeholder="请填写您的收获地址" required />
+            </div>
+            <div class="form-group">
+                <label for="time" class="">您要求什么时候能送达</label>
+                <input type="text" class="form-control" id="time" v-model="formData.time" placeholder="请认真填写，保证能拿到快递" />
+            </div>
+            <div>
+                <button class="btn btn-default btn" @click="upload" type="button">发布任务</button>
+            </div>
+        </form>
     </div>
 </template>
 <script>
+import Footer from "./Footer.vue";
+import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            //校园风景数据
-            sceneryList: [
-                {
-                    title: "大喷泉",
-                    describe: "世界上最小的喷泉，没有之一",
-                    images: [
-                        {
-                            url:
-                                "http://pic20.photophoto.cn/20110708/0037037130641578_b.jpg"
-                        }
-                    ]
-                }
-            ],
-            //兼职发布数据
-            jobList: [
-                {
-                    title: "搬砖",
-                    describe: "一天两百",
-                    location: "通化",
-                    phone: "123456789",
-                    images: [
-                        {
-                            url: "/static/images/jianzhi.jpg"
-                        }
-                    ]
-                }
-            ],
-            //二手闲置数据
-            goodsList: [
-                {
-                    goodsName: "苹果X",
-                    describe: "9.9新",
-                    price: "价格面议",
-                    phone: "123456789",
-                    images: [
-                        {
-                            url: "/static/images/ershou.jpg"
-                        }
-                    ]
-                }
-            ],
-            //校园活动数据
-            clubList: [
-                {
-                    clubName: "运动会",
-                    time: "2020-2-20",
-                    describe: "脑补去吧",
-                    location: "体育馆",
-                    images: [
-                        {
-                            url: "/static/images/huodong.jpg"
-                        }
-                    ]
-                }
-            ]
+            formData: {},
         };
+    },
+    mounted() {
+        this.$store.dispatch("user/getUserSession");
+    },
+    computed: {
+        ...mapGetters({
+            userInfo: "user/getUserInfo"
+        })
+    },
+    methods: {
+        upload() {
+            this.formData.userName = "userInfo.userName"
+            this.$loading("发布中...");
+            this.axios
+                .post("/user/addLose", this.sumData)
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.$loading.close();
+                        this.$toast.center(res.data.message);
+                    } else {
+                        this.$loading.close();
+                        this.$toast.center(res.data.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
     }
 };
 </script>
-<style  lang="less" scoped>
-//div公共样式
-.thnu_scenery,
-.thnu_job,
-.thnu_goods,
-.thnu_club {
-    // padding: 20px;
-}
-//h4公共样式
-.thnu_scenery h4,
-.thnu_job h4,
-.thnu_goods h4,
-.thnu_club h4 {
-    border-bottom: 1px solid #ccc;
-    padding-left: 25px;
-}
-//a公共样式
-.thnu_scenery .thnu_scenery_link a,
-.thnu_job .thnu_job_link a,
-.thnu_goods .thnu_goods_link a,
-.thnu_club .thnu_club_link a {
-    text-decoration: none;
+<style lang="less" scoped>
+.add_exp {
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    background: url("/static/images/all_bg.jpg") repeat center center;
+    background-size: cover;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
-//描述样式
-.thnu_scenery .thnu_scenery_link a .describe,
-.thnu_job .thnu_job_link a .describe,
-.thnu_goods .thnu_goods_link a .describe,
-.thnu_club .thnu_club_link a .describe {
-    padding-left: 25px;
-    color: black;
-    width: 50%;
-    // padding: 0 20px;
+h2 {
+    text-align: center;
+    padding: 10px;
 }
-
-//图片公共样式
-.thnu_scenery .thnu_scenery_link a > img,
-.thnu_job .thnu_job_link a > img,
-.thnu_goods .thnu_goods_link a > img,
-.thnu_club .thnu_club_link a > img {
+label {
+    // font-weight: 2px;
+    font-size: 16px;
+}
+.btn {
+    background-color: #337ab7;
+    margin-top: 10px;
+    color: white;
+}
+#images > img {
+    padding: 3px;
+    border: 1px solid #ccc;
     display: block;
-    margin: 0 auto;
-    width: 80%;
+    float: left;
+    width: 150px;
     height: 200px;
-}
-
-//鼠标经过公共样式
-.thnu_scenery a:hover > img,
-.thnu_job a:hover > img,
-.thnu_goods a:hover > img,
-.thnu_club a:hover > img {
-    box-shadow: 3px 3px 1px;
-    text-decoration: none;
-}
-
-.thnu_scenery {
-}
-
-.thnu_job {
-}
-.thnu_goods {
-}
-.thnu_club {
 }
 </style>
 

@@ -1,21 +1,13 @@
 <template>
     <div class="admin_not_login">
         <form class="admin_login_form form-signin col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
-            <h2 class="form-signin-heading">请登录后台管理系统</h2>
-            <label for="adminName">管理员名</label>
+            <h2 class="form-signin-heading">thnu后台管理系统</h2>
+            <label for="adminName">管理员</label>
             <input type="text" id="adminName" class="form-control btn-lg" placeholder="管理员名" autofocus autocomplete="on" v-model="loginForm.adminName">
             <label for="inputPassword">密码</label>
             <input type="password" id="inputPassword" class="form-control btn-lg" placeholder="管理员密码" v-model="loginForm.password">
             <button class="btn btn-lg btn-primary btn-block" @click="adminLogin" data-toggle="modal" data-target=".bs-example-modal-sm">登录</button>
         </form>
-        <!-- <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <h4 class="modal_title">提示信息</h4>
-                    <p id="modal_content"></p>
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 <script>
@@ -31,23 +23,29 @@ export default {
     methods: {
         adminLogin: function() {
             if (this.loginForm.adminName && this.loginForm.password) {
-                const userObj = this.loginForm;
+                const userObj = {
+                    adminName: this.loginForm.adminName,
+                    password: this.loginForm.password
+                };
                 userObj.password = this.crypto(userObj.password);
+                this.$loading("登录中...");
                 this.axios
                     .post("/admin/login", userObj)
                     .then(response => {
                         if (response.data.status == "success") {
                             //登录成功
+                            this.$loading.close();
                             this.$store.dispatch("admin/getAdminSession");
                         } else {
-                            alert("账号密码错误");
+                            this.$loading.close();
+                            this.$toast.center("账号密码错误");
                         }
                     })
                     .catch(err => {
                         console.log(err);
                     });
             } else {
-                // $("#modal_content").text("输入有误，请重新输入");
+                this.$toast.center("请输入正确的信息");
             }
             this.loginTime = Date.now();
         }
@@ -57,6 +55,8 @@ export default {
 <style scoped>
 .admin_not_login {
     position: fixed;
+    height: 100%;
+    overflow: auto;
     background: url("/static/images/bgc_login_admin.jpg") no-repeat center
         center;
     background-size: cover;
@@ -66,7 +66,7 @@ export default {
     right: 0;
 }
 .admin_login_form {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .admin_login_form label {
     color: #2c5f8d;

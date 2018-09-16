@@ -170,20 +170,18 @@ export default {
         toggleOwn: function() {
             $(function() {
                 $("#control_by").toggleClass("hidden-xs");
-                console.log("切换");
             });
         },
         clickContent: function() {
             var hidden = $("#control_by").hasClass("hidden-xs");
             if (!hidden) {
                 $("#control_by").addClass("hidden-xs");
-                console.log("移除");
             }
         },
         logout: function() {
             this.axios("/admin/logout")
                 .then(response => {
-                    console.log("退出成功");
+                    console.log("admin logo out");
                     window.location = "/";
                 })
                 .catch(err => {

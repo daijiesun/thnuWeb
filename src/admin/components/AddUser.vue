@@ -4,7 +4,7 @@
         <form class="addUser">
             <div class="form-group">
                 <label for="userName">用户名</label>
-                <input type="text" class="form-control" id="userName" placeholder="用户名" autofocus v-model="registerForm.userName">
+                <input type="text" class="form-control" id="userName" placeholder="用户名" v-model="registerForm.userName">
             </div>
             <div class="form-group">
                 <label for="email">邮箱</label>
@@ -35,10 +35,13 @@ export default {
             }
         };
     },
+    mounted () {
+        $("#userName").focus();
+    },
     methods: {
         addUser: function() {
             if (this.registerForm.password != this.registerForm.passwordOk) {
-                alert("两次密码不一样");
+                 this.$toast.center("两次密码不一样");
                 return;
             } else if (
                 !(
@@ -48,20 +51,23 @@ export default {
                     this.registerForm.email
                 )
             ) {
-                alert("输入内容不能为空");
+                 this.$toast.center("输入内容不能为空");
                 return;
             }
-            var userObj = this.registerForm;
-            delete userObj.passwordOk;
+            var userObj = {
+                userName:this.registerForm.userName,
+                password:this.registerForm.password,
+                email:this.registerForm.email
+            }
             userObj.password = this.crypto(userObj.password);
             this.axios
                 .post("/admin/addUser", userObj)
                 .then(response => {
                     if (response.data.status == "success") {
                         this.$router.push("userManage");
-                        alert("添加成功");
+                         this.$toast.center("添加成功");
                     } else {
-                        alert(response.data.message);
+                         this.$toast.center(response.data.message);
                     }
                 })
                 .catch(err => {

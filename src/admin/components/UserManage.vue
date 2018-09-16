@@ -2,7 +2,7 @@
 <template>
     <div class="container-fluid">
         <h4 class="text-primary">用户管理 > 用户列表 </h4>
-        <div class="table-responsive" v-if="userList">
+        <div class="table-responsive" v-show="userList">
             <table id="my_table" class="table table-striped table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -30,9 +30,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="no_user container-fluid" v-else>
+        <div class="no_user container-fluid" v-show="!userList">
             <div class="title">
-                <h1>客官，正在加载中！</h1>
+                <h1>暂无用户信息，请添加用户！</h1>
             </div>
         </div>
     </div>
@@ -69,11 +69,11 @@ export default {
                             //删除本地数据，不用刷新就更新数据
                             this.userList.splice(index, 1);
                         } else {
-                            alert(response.data.message);
+                             this.$toast.center(response.data.message);
                         }
                     })
                     .catch(err => {
-                        alert("系统繁忙，稍后再试");
+                         this.$toast.center("系统繁忙，稍后再试");
                     });
             }
         },

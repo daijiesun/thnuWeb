@@ -4,7 +4,7 @@
         <h4 class="text-primary">服务管理 > 快递服务 </h4>
         <div class="table-responsive">
             <table class="table table-hover">
-                <thead>
+                <thead class="text-primary">
                     <tr>
                         <td>用户名</td>
                         <td>姓名</td>
@@ -16,6 +16,7 @@
                         <td>取件地址</td>
                         <td>收件地址</td>
                         <td>送达时间</td>
+                        <td>移除</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +32,7 @@
                         <td>{{item.putLocation}}</td>
                         <td>{{item.time}}</td>
                         <td>
-                            <span class="pointer glyphicon glyphicon-trash"></span>
+                            <span class="pointer glyphicon glyphicon-trash" @click="removeOne(index,item._id)"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -43,9 +44,47 @@
 export default {
     data() {
         return {
-            //快递单列表
             expressageList: []
         };
+    },
+    mounted() {
+        this.getList();
+    },
+    methods: {
+        getList: function() {
+            this.axios
+                .get("admin/getExpList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.expressageList = res.data.message.reverse();
+                    } else {
+                        this.$toast.center(res.data.message);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        removeOne(index, id) {
+            const result = confirm("确定移除？一旦移除不可恢复");
+            if (result) {
+                this.axios
+                    .get("admin/delOneExp" + "?id=" + id)
+                    .then(res => {
+                        if (res.data.status == "success") {
+                            this.$toast.center(res.data.message);
+                            this.expressageList.splice(index, 1);
+                        } else {
+                            this.$toast.center(res.data.message);
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.$toast.center("系统繁忙，请稍后再试");
+                    });
+            }
+            return;
+        }
     }
 };
 </script>
@@ -53,5 +92,8 @@ export default {
 h4 {
     padding-bottom: 10px;
     border-bottom: 1px solid #000;
+}
+tbody span:hover {
+    cursor: pointer;
 }
 </style>

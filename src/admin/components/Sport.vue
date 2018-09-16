@@ -4,7 +4,7 @@
         <h4 class="text-primary">服务管理 > 校园活动 </h4>
         <div class="table-responsive">
             <table class="table table-hover">
-                <thead>
+                <thead class="text-primary">
                     <tr>
                         <td>发布人</td>
                         <td>标题</td>

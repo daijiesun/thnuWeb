@@ -37,16 +37,25 @@ class User {
       })
     } else {
       const user = await UserModuls.find({
-        $or: [{
-          "userName": body.userName
-        }, {
-          "email": body.email
-        }]
+        // $or: [{
+        //   "userName": body.userName
+        // }, {
+        //   "email": body.email
+        // }]
+        userName: body.userName
+      })
+      const email = await UserModuls.find({
+        email: body.email
       })
       if (!_.isEmpty(user)) {
         res.send({
           status: 'error',
-          message: '该用户名或邮箱已经存在'
+          message: '该用户名已经存在'
+        })
+      } else if (!_.isEmpty(email)) {
+        res.send({
+          status: 'error',
+          message: '该邮箱已经存在'
         })
       } else {
         await UserModuls.create(body)
@@ -56,6 +65,23 @@ class User {
         })
       }
 
+    }
+  }
+
+  async userLogin(req, res, next) {
+    const body = req.body
+    const user = await UserModuls.findOne(body)
+    if (!_.isEmpty(user)) {
+      req.session.user = user
+      res.send({
+        status: 'success',
+        message: '登录成功'
+      })
+    } else {
+      res.send({
+        status: 'error',
+        message: '邮箱或密码错误'
+      })
     }
   }
 
@@ -89,7 +115,7 @@ class User {
     }
 
   }
-  //修改密码
+  //管理员修改用户密码
   async modifyPassword(req, res, next) {
     const body = req.body
     console.log(body)

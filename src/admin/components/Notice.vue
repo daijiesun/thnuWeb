@@ -57,7 +57,7 @@ export default {
                     }
                 })
                 .catch(err => {
-                    alert("获取数据发生错误，请稍后再试");
+                     this.$toast.center("获取数据发生错误，请稍后再试");
                 });
         },
         // 移除公告
@@ -70,11 +70,11 @@ export default {
                         if (response.data.status == "success") {
                             this.noticeList.splice(index, 1);
                         } else {
-                            alert(response.data.message);
+                             this.$toast.center(response.data.message);
                         }
                     })
                     .catch(err => {
-                        alert("系统繁忙，稍后再试");
+                         this.$toast.center("系统繁忙，稍后再试");
                     });
             }
         },
@@ -86,14 +86,15 @@ export default {
                     .post("/admin/addNotice", { content: this.addContent })
                     .then(res => {
                         if (res.data.status == "success") {
+                            this.$toast.center("添加成功");
                             this.getNotice();
                             this.addContent = null;
                         } else {
-                            alert(res.data.message);
+                             this.$toast.center(res.data.message);
                         }
                     });
             } else {
-                alert("输入内容不能为空");
+                 this.$toast.center("输入内容不能为空");
             }
         }
     }
