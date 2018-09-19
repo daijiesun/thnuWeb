@@ -21,7 +21,11 @@
                         <td>{{item.userName}}</td>
                         <td>{{item.title}}</td>
                         <td>{{item.date}}</td>
-                        <td>{{item.content}}</td>
+                        <td>
+                            <div class="overflow">
+                                <td>{{item.content}}</td>
+                            </div>
+                        </td>
                         <td>暂不显示!!!</td>
                         <!-- <td><img :src="item.photo[0]" alt=""></td> -->
                         <td>
@@ -34,47 +38,38 @@
     </div>
 </template>
 <script>
+import { mapGetters, mapState, mapActions } from "vuex";
 export default {
     data() {
-        return {
-            funList: []
-        };
+        return {};
     },
-    mounted() {
-        this.getList();
+    created() {
+        this.$store.dispatch("user/getFunList");
+    },
+    computed: {
+        ...mapGetters({
+            funList: "user/getFunList"
+        })
     },
     methods: {
-        getList: function() {
-            this.axios
-                .get("admin/getFunList")
-                .then(res => {
-                    if (res.data.status == "success") {
-                        this.funList = res.data.message.reverse();
-                    } else {
-                        this.$toast.center(res.data.message);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        },
         removeOne(index, id) {
             const result = confirm("确定移除？一旦移除不可恢复");
             if (result) {
-                this.axios
-                    .get("admin/delOneFun" + "?id=" + id)
-                    .then(res => {
-                        if (res.data.status == "success") {
-                            this.$toast.center(res.data.message);
-                            this.funList.splice(index, 1);
-                        } else {
-                            this.$toast.center(res.data.message);
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        this.$toast.center("系统繁忙，请稍后再试");
-                    });
+                this.$store.dispatch("user/delOneFun",id);
+                // this.axios
+                //     .get("admin/delOneFun" + "?id=" + id)
+                //     .then(res => {
+                //         if (res.data.status == "success") {
+                //             this.$toast.center(res.data.message);
+                //             this.funList.splice(index, 1);
+                //         } else {
+                //             this.$toast.center(res.data.message);
+                //         }
+                //     })
+                //     .catch(err => {
+                //         console.log(err);
+                //         this.$toast.center("系统繁忙，请稍后再试");
+                //     });
             }
             return;
         }
@@ -88,5 +83,10 @@ h4 {
 }
 tbody span:hover {
     cursor: pointer;
+}
+.overflow {
+    width: 150px;
+    height: 30px;
+    overflow: auto;
 }
 </style>

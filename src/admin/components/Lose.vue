@@ -20,7 +20,11 @@
                         <td>{{item.userName}}</td>
                         <td>{{item.tel}}</td>
                         <td>{{item.date}}</td>
-                        <td>{{item.content}}</td>
+                        <td>
+                            <div class="overflow">
+                                <td>{{item.content}}</td>
+                            </div>
+                        </td>
                         <!-- <td><img :src="item.photo[0]" alt=""></td> -->
                         <td>
                             <span class="pointer glyphicon glyphicon-trash" @click="removeOne(index,item._id)"></span>
@@ -32,30 +36,21 @@
     </div>
 </template>
 <script>
+import { mapGetters, mapState, mapActions } from "vuex";
+
 export default {
     data() {
-        return {
-            loseList: []
-        };
+        return {};
     },
     mounted() {
-        this.getList();
+        this.$store.dispatch("user/getLoseList");
+    },
+    computed: {
+        ...mapGetters({
+            loseList: "user/getLoseList"
+        })
     },
     methods: {
-        getList: function() {
-            this.axios
-                .get("admin/getLoseList")
-                .then(res => {
-                    if (res.data.status == "success") {
-                        this.loseList = res.data.message.reverse();
-                    } else {
-                        this.$toast.center(res.data.message);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        },
         removeOne(index, id) {
             const result = confirm("确定移除？一旦移除不可恢复");
             if (result) {
@@ -87,6 +82,11 @@ h4 {
 }
 tbody span:hover {
     cursor: pointer;
+}
+.overflow {
+    width: 150px;
+    height: 30px;
+    overflow: auto;
 }
 </style>
 

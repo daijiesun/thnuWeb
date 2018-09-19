@@ -23,7 +23,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#">修改信息</a>
+                                    <a role="menuitem" tabindex="-1" href="javascript:void(0);">修改信息</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li role="presentation">
@@ -131,7 +131,7 @@
                     <!-- 右侧内容区域 -->
                     <section class="admin_content col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="admin_content" @click="clickContent">
                         <transition name="component-fade" mode="out-in">
-                            <AdminIndex v-if="this.$route.path == '/admin'"/>
+                            <AdminIndex v-if="this.$route.path == '/admin'" />
                             <router-view/>
                         </transition>
                     </section>
@@ -149,8 +149,7 @@ import Login from "./Login.vue";
 import { mapGetters, mapState, mapActions } from "vuex";
 export default {
     data() {
-        return {
-        };
+        return {};
     },
     mounted() {
         this.$store.dispatch("admin/getAdminSession");
@@ -183,6 +182,7 @@ export default {
                 .then(response => {
                     console.log("admin logo out");
                     window.location = "/";
+                    // this.$router.push({ name: "Admin" });
                 })
                 .catch(err => {
                     console.log(err);
@@ -194,12 +194,13 @@ export default {
 <style lang="less" scoped>
 @charset "UTF-8";
 //过度动画
-.component-fade-enter-active, .component-fade-leave-active {
-  transition: opacity .3s ease;
+.component-fade-enter-active,
+.component-fade-leave-active {
+    transition: opacity 0.3s ease;
 }
 .component-fade-enter, .component-fade-leave-to
 /* .component-fade-leave-active for below version 2.1.8 */ {
-  opacity: 0;
+    opacity: 0;
 }
 
 //样式

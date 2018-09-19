@@ -41,30 +41,22 @@
     </div>
 </template>
 <script>
+import { mapGetters, mapState, mapActions } from "vuex";
+
 export default {
     data() {
         return {
-            expressageList: []
         };
     },
-    mounted() {
-        this.getList();
+    created() {
+        this.$store.dispatch("user/getExpList");
+    },
+    computed: {
+        ...mapGetters({
+            expressageList: "user/getExpList"
+        })
     },
     methods: {
-        getList: function() {
-            this.axios
-                .get("admin/getExpList")
-                .then(res => {
-                    if (res.data.status == "success") {
-                        this.expressageList = res.data.message.reverse();
-                    } else {
-                        this.$toast.center(res.data.message);
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        },
         removeOne(index, id) {
             const result = confirm("确定移除？一旦移除不可恢复");
             if (result) {

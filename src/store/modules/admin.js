@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const state = {
+  //管理员信息
   adminInfo: null
 }
 

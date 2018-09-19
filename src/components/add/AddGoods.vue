@@ -1,17 +1,17 @@
 <template>
-    <div class="add_fun container-fluid">
-        <h2 class="">校园趣事</h2>
-        <form>
+    <div class="add_sport container-fluid">
+        <h2 class="">发布闲置商品</h2>
+        <form id="my-form">
             <div class="form-group">
-                <label for="title" class="">趣事标题</label>
-                <input type="text" class="form-control" id="title" v-model="formData.title" placeholder="标题最多二十个字" maxlength="20" autofocus required>
+                <label for="content" class="">商品描述</label>
+                <textarea type="text" class="form-control" id="content" name="content" rows=4 v-model="formData.content" placeholder="请描述你的商品"/>
             </div>
             <div class="form-group">
-                <label for="content" class="">你要逼逼的内容写这里</label>
-                <textarea type="password" class="form-control" id="content" v-model="formData.content" rows=8 placeholder="爱咋填就咋填，随便填" required/>
+                <label for="tel" class="">联系方式</label>
+                <input type="text" class="form-control" id="tel" name="tel" v-model="formData.tel" placeholder="请输入您的联系方式" />
             </div>
             <div class="form-group">
-                <label for="exampleInputFile" class="text-danger">你要晒照点这里
+                <label for="img" class="text-danger">你可以在这里附上商品的照片，最多十张哦
                     <span class="glyphicon glyphicon-hand-down"></span>
                 </label>
                 <input type="file" id="img" name="files" @change="uploadDone" multiple>
@@ -19,13 +19,12 @@
                     <img :src="item" alt="">
                 </div>
                 <br style="clear: both">
-                <button class="btn btn-default btn" @click="upload" type="button">发表</button>
+                <button class="btn btn-default btn" @click="upload" type="button">发布商品</button>
             </div>
         </form>
     </div>
 </template>
 <script>
-import Footer from "./Footer.vue";
 import { mapGetters } from "vuex";
 export default {
     data() {
@@ -33,7 +32,7 @@ export default {
             formData: {},
             imageList: [],
             //这里定义表单数据，方便后面在不同方法中添加数据
-            sumData: new FormData()
+            // sumData: new FormData()
         };
     },
     mounted() {
@@ -54,19 +53,32 @@ export default {
                     this.imageList.push(window.URL.createObjectURL(list[i]));
                 }
             }
-            const files = e.target.files;
-            if (files) {
-                //这里必须循环添加，不能直接data.append("files", files);
-                //否则后台无法接收
-                for (var i = 0; i < files.length; i++) {
-                    data.append("files", files[i]);
-                }
-            }
+            // const files = e.target.files;
+            // if (files) {
+            //     //这里必须循环添加，不能直接data.append("files", files);
+            //     //否则后台无法接收
+            //     for (var i = 0; i < files.length; i++) {
+            //         this.sumData.append("files", files[i]);
+            //     }
+            // }   // const files = e.target.files;
+            // if (files) {
+            //     //这里必须循环添加，不能直接data.append("files", files);
+            //     //否则后台无法接收
+            //     for (var i = 0; i < files.length; i++) {
+            //         this.sumData.append("files", files[i]);
+            //     }
+            // }
         },
         upload() {
-            this.sumData.append("title", this.formData.title);
-            this.sumData.append("content", this.formData.content);
-            this.sumData.append("userName", "userInfo.userName");
+            if (!this.formData.content || !this.formData.tel) {
+                this.$toast.center("输入内容不能为空");
+                return;
+            }
+            var form = document.getElementById("my-form")
+            var sumData = new FormData(form)
+            // this.sumData.append("tel", this.formData.tel);
+            // this.sumData.append("content", this.formData.content);
+            sumData.append("userName", "userInfo.userName");
             this.$loading("发布中...");
             const head = {
                 header: {
@@ -74,11 +86,13 @@ export default {
                 }
             };
             this.axios
-                .post("/user/addFun", this.sumData, head)
+                .post("/user/addGoods", sumData, head)
                 .then(res => {
                     if (res.data.status == "success") {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
+                        this.formData = {};
+                        this.imageList = [];
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
@@ -92,8 +106,12 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.add_fun {
-    position: fixed;
+form textarea,
+form input {
+    opacity: 0.9;
+}
+.add_sport {
+    // position: fixed;
     height: 100%;
     overflow: auto;
     background: url("/static/images/all_bg.jpg") repeat center center;

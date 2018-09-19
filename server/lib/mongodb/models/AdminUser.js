@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const time = require('../../../../tools/time')
+const time = require('../../../utils/time')
 const adminSchema = new Schema({
   //管理员名
   adminName: {

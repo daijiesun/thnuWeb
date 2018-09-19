@@ -2,7 +2,7 @@
 <template>
     <div class="container-fluid">
         <h4 class="text-primary">用户管理 > 用户列表 </h4>
-        <div class="table-responsive" v-show="userList">
+        <div class="table-responsive" v-show="userList.length!=0">
             <table id="my_table" class="table table-striped table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in this.userList" :key="item._id">
+                    <tr v-for="(item,index) in userList" :key="item._id">
                         <td>{{index+1}}</td>
                         <td>{{item.userName}}</td>
                         <td>{{item.email}}</td>
@@ -30,7 +30,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="no_user container-fluid" v-show="!userList">
+        <div class="no_user container-fluid" v-show="userList.length == 0">
             <div class="title">
                 <h1>暂无用户信息，请添加用户！</h1>
             </div>
@@ -43,14 +43,14 @@ import { mapGetters, mapState, mapActions } from "vuex";
 export default {
     data() {
         return {
-            thisUserList: []
+            // userList: []
         };
-    },
-    mounted() {
-        this.$store.dispatch("user/getList");
     },
     comments: {
         ModifyUser
+    },
+    mounted() {
+        this.$store.dispatch("user/getList");
     },
     computed: {
         ...mapGetters({
@@ -69,11 +69,11 @@ export default {
                             //删除本地数据，不用刷新就更新数据
                             this.userList.splice(index, 1);
                         } else {
-                             this.$toast.center(response.data.message);
+                            this.$toast.center(response.data.message);
                         }
                     })
                     .catch(err => {
-                         this.$toast.center("系统繁忙，稍后再试");
+                        this.$toast.center("系统繁忙，稍后再试");
                     });
             }
         },

@@ -1,14 +1,14 @@
 <template>
     <div class="add_fun container-fluid">
         <h2 class="">寻物启事</h2>
-        <form>
+        <form id="my-form">
             <div class="form-group">
                 <label for="tel" class="">您的联系方式?</label>
-                <input type="text" class="form-control" id="tel" v-model="formData.tel" placeholder="请认真填写，方便联系您" required autofocus/>
+                <input type="text" class="form-control" id="tel" name="tel" v-model="formData.tel" placeholder="请认真填写，方便联系您" required/>
             </div>
             <div class="form-group">
                 <label for="content" class="">你想要写什么？</label>
-                <textarea type="password" class="form-control" id="content" v-model="formData.content" rows=6 placeholder="请描述您的内容" required/>
+                <textarea type="password" class="form-control" id="content" name="content" v-model="formData.content" rows=6 placeholder="请描述您的内容" required/>
             </div>
             <div class="form-group">
                 <label for="exampleInputFile" class="text-danger">发图片？ 点这里
@@ -25,15 +25,14 @@
     </div>
 </template>
 <script>
-import Footer from "./Footer.vue";
 import { mapGetters } from "vuex";
 export default {
     data() {
         return {
             formData: {},
-            imageList: [],
+            imageList: []
             //这里定义表单数据，方便后面在不同方法中添加数据
-            sumData: new FormData()
+            // sumData: new FormData()
         };
     },
     mounted() {
@@ -54,19 +53,25 @@ export default {
                     this.imageList.push(window.URL.createObjectURL(list[i]));
                 }
             }
-            const files = e.target.files;
-            if (files) {
-                //这里必须循环添加，不能直接data.append("files", files);
-                //否则后台无法接收
-                for (var i = 0; i < files.length; i++) {
-                    this.sumData.append("files", files[i]);
-                }
-            }
+            // const files = e.target.files;
+            // if (files) {
+            //     //这里必须循环添加，不能直接data.append("files", files);
+            //     //否则后台无法接收
+            //     for (var i = 0; i < files.length; i++) {
+            //         this.sumData.append("files", files[i]);
+            //     }
+            // }
         },
         upload() {
-            this.sumData.append("tel", this.formData.tel);
-            this.sumData.append("content", this.formData.content);
-            this.sumData.append("userName", "userInfo.userName");
+            if (!this.formData.content || !this.formData.tel) {
+                this.$toast.center("输入内容不能为空");
+                return;
+            }
+            var form = document.getElementById("my-form");
+            var sumData = new FormData(form);
+            // this.sumData.append("tel", this.formData.tel);
+            // this.sumData.append("content", this.formData.content);
+            sumData.append("userName", "userInfo.userName");
             this.$loading("发布中...");
             const head = {
                 header: {
@@ -74,11 +79,13 @@ export default {
                 }
             };
             this.axios
-                .post("/user/addLose", this.sumData, head)
+                .post("/user/addLose",sumData, head)
                 .then(res => {
                     if (res.data.status == "success") {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
+                        this.formData = {};
+                        this.imageList = [];
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
@@ -92,8 +99,12 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+form textarea,
+form input {
+    opacity: 0.9;
+}
 .add_fun {
-    position: fixed;
+    // position: fixed;
     height: 100%;
     overflow: auto;
     background: url("/static/images/all_bg.jpg") repeat center center;

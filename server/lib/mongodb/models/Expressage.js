@@ -1,4 +1,4 @@
-//校园趣事
+//校园快递发布
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const time = require('../../../utils/time')

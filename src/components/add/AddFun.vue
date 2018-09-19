@@ -1,13 +1,17 @@
 <template>
     <div class="add_fun container-fluid">
-        <h2 class="">添加你心中所爱</h2>
-        <form>
+        <h2 class="">校园趣事</h2>
+        <form name="fileinfo" id="myForm">
             <div class="form-group">
-                <label for="content" class="">你想写多少写多少，来吧少年！</label>
-                <textarea type="password" class="form-control" id="content" rows=10 v-model="formData.content" placeholder="爱咋填就咋填，随便填" required/>
+                <label for="title" class="">趣事标题</label>
+                <input type="text" class="form-control" id="title" name="title" v-model="formData.title" placeholder="标题最多二十个字" maxlength="20" autofocus required>
             </div>
             <div class="form-group">
-                <label for="exampleInputFile" class="text-danger">女神照片帖这里哦
+                <label for="content" class="">你的趣事内容写这里</label>
+                <textarea type="password" class="form-control" id="content" name="content" v-model="formData.content" rows=8 placeholder="爱咋填就咋填，随便填" required/>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile" class="text-danger">你要晒照点这里
                     <span class="glyphicon glyphicon-hand-down"></span>
                 </label>
                 <input type="file" id="img" name="files" @change="uploadDone" multiple>
@@ -15,21 +19,19 @@
                     <img :src="item" alt="">
                 </div>
                 <br style="clear: both">
-                <button class="btn btn-default btn" @click="upload" type="button">表白</button>
+                <button class="btn btn-default btn" @click="upload" type="button">发表</button>
             </div>
         </form>
     </div>
 </template>
 <script>
-import Footer from "./Footer.vue";
 import { mapGetters } from "vuex";
 export default {
     data() {
         return {
             formData: {},
             imageList: [],
-            //这里定义表单数据，方便后面在不同方法中添加数据
-            sumData: new FormData()
+            tag:{}
         };
     },
     mounted() {
@@ -43,6 +45,7 @@ export default {
     methods: {
         //实现预览
         uploadDone(e) {
+             this.tag = e
             const list = document.getElementById("img").files;
             const liObj = document.getElementById("images");
             for (var i = 0; i < list.length; i++) {
@@ -50,18 +53,15 @@ export default {
                     this.imageList.push(window.URL.createObjectURL(list[i]));
                 }
             }
-            const files = e.target.files;
-            if (files) {
-                //这里必须循环添加，不能直接data.append("files", files);
-                //否则后台无法接收
-                for (var i = 0; i < files.length; i++) {
-                    this.sumData.append("files", files[i]);
-                }
-            }
         },
         upload() {
-            this.sumData.append("content",this.formData.content);
-            this.sumData.append("userName", "userInfo.userName");
+            //获取表单数据
+            var form = document.getElementById("myForm");  
+            //创建表单对象，并添加数据          
+            var sumData = new FormData(form)  
+            //添加用户名          
+            sumData.append("userName", "userInfo.userName");
+            console.log(sumData);
             this.$loading("发布中...");
             const head = {
                 header: {
@@ -69,11 +69,14 @@ export default {
                 }
             };
             this.axios
-                .post("/user/addLove", this.sumData, head)
+                .post("/user/addFun", sumData, head)
                 .then(res => {
                     if (res.data.status == "success") {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
+                        this.formData = {};
+                        this.imageList = [];
+                        console.dir(sumData);
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
@@ -88,7 +91,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .add_fun {
-    position: fixed;
+    // position: fixed;
     height: 100%;
     overflow: auto;
     background: url("/static/images/all_bg.jpg") repeat center center;
@@ -118,6 +121,10 @@ label {
     float: left;
     width: 150px;
     height: 200px;
+}
+form textarea,
+form input {
+    opacity: 0.9;
 }
 </style>
 

@@ -16,6 +16,16 @@ const Love = require('../lib/mongodb/controller/love')
 const Lose = require('../lib/mongodb/controller/lose')
 //快递
 const Exp = require('../lib/mongodb/controller/expressage')
+//兼职
+const Job = require('../lib/mongodb/controller/job')
+//活动
+const Sport = require('../lib/mongodb/controller/sport')
+//二手
+const Goods = require('../lib/mongodb/controller/goods')
+
+
+
+
 //管理员登录信息
 router.get('/admin/session', (req, res) => {
   res.send({
@@ -44,6 +54,12 @@ router.get('/admin/getLoseList', Lose.getLoseList) //获取寻物列表
 router.get('/admin/delOneLose', Lose.delOneLose) //根据id移除寻物信息
 router.get('/admin/getExpList', Exp.getExpList) //获取快递单列表
 router.get('/admin/delOneExp', Exp.delOneExp) //根据id移除快递单信息
+router.get('/admin/getJobList', Job.getJobList) //获取所有兼职
+router.get('/admin/delOneJob', Job.delOneJob) //根据id移除兼职
+router.get('/admin/getSportList', Sport.getSportList) //获取所有兼职
+router.get('/admin/delOneSport', Sport.delOneSport) //根据id移除兼职
+router.get('/admin/getGoodsList', Goods.getGoodsList) //获取所有商品
+router.get('/admin/delOneGoods', Goods.delOneGoods) //根据id移除商品
 //首页相关路由
 router.get('/index/getNotice', Notice.getNoticeList) //首页获取公告
 
@@ -61,16 +77,30 @@ router.post('/user/register', User.userRegister) //用户注册
 router.post('/user/login', User.userLogin) //用户登录
 //趣事
 router.get('/user/getFunList', Fun.getFunList) //获取所有趣事（前端自行过滤）
-router.post('/user/addFun', upload.array('files', 10), Fun.addFun) //添加趣事
+router.post('/user/addFun', upload.array('files', 20), Fun.addFun) //添加趣事
 router.get('/user/delOneFun', Fun.delOneFun) //根据id移除趣事
 //表白墙
 router.get('/user/getLoveList', Love.getLoveList) //获取所有表白（前端自行过滤）
-router.post('/user/addLove', upload.array('files', 10), Love.addLove) //添加表白
+router.post('/user/addLove', upload.array('files', 20), Love.addLove) //添加表白
 router.get('/user/delOneLove', Love.delOneLove) //根据id移除表白
 //寻物
 router.get('/user/getLoseList', Lose.getLoseList) //获取所有寻物（前端自行过滤）
-router.post('/user/addLose', upload.array('files', 10), Lose.addLose) //添加寻物
+router.post('/user/addLose', upload.array('files', 20), Lose.addLose) //添加寻物
 router.get('/user/delOneLose', Lose.delOneLose) //根据id移除寻物
-
-
+//快递
+router.get('/user/getExpList', Exp.getExpList) //获取所有快递（前端自行过滤）
+router.post('/user/addExp',Exp.addExp) //添加快递
+router.get('/user/delOneExp', Exp.delOneExp) //根据id移除快递
+//兼职发布
+router.get('/user/getJobList', Job.getJobList) //获取所有兼职（前端自行过滤）
+router.post('/user/addJob',Job.addJob) //添加兼职
+router.get('/user/delOneJob', Job.delOneJob) //根据id移除兼职
+//校园活动
+router.get('/user/getSportList', Sport.getSportList) //获取所有活动
+router.post('/user/addSport',Sport.addSport) //添加活动
+router.get('/user/delOneSport', Sport.delOneSport) //根据id移除活动
+//商品
+router.get('/user/getGoodsList', Goods.getGoodsList) //获取所有商品（前端自行过滤）
+router.post('/user/addGoods', upload.array('files', 20), Goods.addGoods) //添加商品
+router.get('/user/delOneGoods', Goods.delOneGoods) //根据id移除商品
 module.exports = router

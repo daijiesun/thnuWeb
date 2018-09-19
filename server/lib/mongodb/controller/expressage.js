@@ -6,11 +6,12 @@ class Exp {
 
   }
 
-  //添加趣事
+  //添加快递
   async addExp(req, res, next) {
     //文本数据
     try {
       const body = req.body
+      console.log(body)
       await ExpModuls.create(body)
       res.send({
         status: 'success',
@@ -24,7 +25,7 @@ class Exp {
       })
     }
   }
-  //获取趣事列表
+  //获取快递列表
   async getExpList(req, res, next) {
     try {
       const expList = await ExpModuls.find()
@@ -40,7 +41,7 @@ class Exp {
       })
     }
   }
-  //根据id移除趣事
+  //根据id移除快递
   async delOneExp(req, res, next) {
     const id = req.query.id
     try {

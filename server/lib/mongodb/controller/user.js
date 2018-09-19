@@ -67,7 +67,7 @@ class User {
 
     }
   }
-
+  //登录
   async userLogin(req, res, next) {
     const body = req.body
     const user = await UserModuls.findOne(body)

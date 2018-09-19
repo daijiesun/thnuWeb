@@ -2,12 +2,12 @@
     <div class="addUser container-fluid row">
         <form>
             <div class="form-group">
-                <label for="userName">新密码</label>
-                <input type="text" class="form-control" id="userName" placeholder="请输入新密码" autofocus v-model="modifyForm.password">
+                <label for="password">新密码</label>
+                <input type="password" class="form-control" id="password" placeholder="请输入新密码" autofocus v-model="modifyForm.password">
             </div>
             <div class="form-group">
-                <label for="email">确认新密码</label>
-                <input type="email" class="form-control" id="email" placeholder="请确认新密码" v-model="modifyForm.passwordOk">
+                <label for="passwordOk">确认新密码</label>
+                <input type="password" class="form-control" id="passwordOk" placeholder="请确认新密码" v-model="modifyForm.passwordOk">
             </div>
             <button type="button" class="btn btn-primary" @click="modifyPassword">确认修改</button>
         </form>
