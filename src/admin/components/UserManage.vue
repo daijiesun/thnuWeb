@@ -2,7 +2,7 @@
 <template>
     <div class="container-fluid">
         <h4 class="text-primary">用户管理 > 用户列表 </h4>
-        <div class="table-responsive" v-show="userList.length!=0">
+        <div class="table-responsive" v-show="userList[0]">
             <table id="my_table" class="table table-striped table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -30,7 +30,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="no_user container-fluid" v-show="userList.length == 0">
+        <div class="no_user container-fluid" v-if="!userList[0]">
             <div class="title">
                 <h1>暂无用户信息，请添加用户！</h1>
             </div>

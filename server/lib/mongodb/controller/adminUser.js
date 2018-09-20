@@ -5,6 +5,7 @@ class Admin {
   constructor() {
     //构造方法
   }
+
   //管理员注册
   async adminRegister(req, res, next) {
     //获取注册信息

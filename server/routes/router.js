@@ -4,6 +4,8 @@ const upload = require('../utils/multer')
 
 //管理员模块
 const Admin = require('../lib/mongodb/controller/adminUser')
+//admin首页图表信息
+const AdminIndex = require('../lib/mongodb/controller/adminIndex')
 //用户模块
 const User = require('../lib/mongodb/controller/user')
 //公告模块
@@ -36,6 +38,7 @@ router.get('/admin/session', (req, res) => {
 })
 
 //管理员相关路由
+router.get('/admin/getIndexInfo', AdminIndex.getIndexInfo) //admin首页图表信息
 router.post('/admin/register', Admin.adminRegister) //管理员注册
 router.post('/admin/login', Admin.adminLogin) //管理员登录
 router.get('/admin/logout', Admin.adminLogout) //管理员退出
@@ -89,15 +92,15 @@ router.post('/user/addLose', upload.array('files', 20), Lose.addLose) //添加�
 router.get('/user/delOneLose', Lose.delOneLose) //根据id移除寻物
 //快递
 router.get('/user/getExpList', Exp.getExpList) //获取所有快递（前端自行过滤）
-router.post('/user/addExp',Exp.addExp) //添加快递
+router.post('/user/addExp', Exp.addExp) //添加快递
 router.get('/user/delOneExp', Exp.delOneExp) //根据id移除快递
 //兼职发布
 router.get('/user/getJobList', Job.getJobList) //获取所有兼职（前端自行过滤）
-router.post('/user/addJob',Job.addJob) //添加兼职
+router.post('/user/addJob', Job.addJob) //添加兼职
 router.get('/user/delOneJob', Job.delOneJob) //根据id移除兼职
 //校园活动
 router.get('/user/getSportList', Sport.getSportList) //获取所有活动
-router.post('/user/addSport',Sport.addSport) //添加活动
+router.post('/user/addSport', Sport.addSport) //添加活动
 router.get('/user/delOneSport', Sport.delOneSport) //根据id移除活动
 //商品
 router.get('/user/getGoodsList', Goods.getGoodsList) //获取所有商品（前端自行过滤）
