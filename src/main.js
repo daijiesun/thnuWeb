@@ -2,9 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router/admin'
-// import indexRouter from './router/index'
-
+import router from './router/index'
 import $ from 'jquery'
 import axios from 'axios'
 //加密

@@ -10,9 +10,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">thnu社区</a>
+                <router-link :to="'/'" class="navbar-brand" >thnu社区</router-link>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -32,9 +31,9 @@
                      <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">校园生活<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><router-link :to="{path:'/lose'}">寻物启事</router-link></li>
+                        <li><router-link :to="{name:'/lose'}">寻物启事</router-link></li>
                         <li><router-link :to="{path:'/news'}">校园趣事</router-link></li>
-                        <li><router-link :to="{path:'/live'}">校园告白</router-link></li>
+                        <li><router-link :to="{path:'/love'}">校园告白</router-link></li>
                         <li><a href="http://tieba.baidu.com/f?ie=utf-8&kw=%E9%80%9A%E5%8C%96%E5%B8%88%E8%8C%83%E5%AD%A6%E9%99%A2&fr=search&red_tag=i2796961685">通师贴吧</a></li>
                     </ul>
                     </li>
@@ -75,7 +74,6 @@
     </div>
 </template>
 <script>
-import Footer from "./Footer.vue";
 export default {
   data() {
     return {

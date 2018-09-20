@@ -77,7 +77,7 @@
 </script>
 <style scoped>
 .thnu_sowing{
-    padding-top: 25px;
+    /* padding-top: 25px; */
 }
 .PC_img img{
     display:block;
