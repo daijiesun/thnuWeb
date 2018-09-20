@@ -80,7 +80,6 @@ export default {
         },
         // 添加公告
         addNotice: function() {
-            console.log(this.addContent);
             if (this.addContent) {
                 this.axios
                     .post("/admin/addNotice", { content: this.addContent })

@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
+    "dns": "^0.2.2",
     "echarts": "^4.2.0-rc.1",
     "jquery": "^3.3.1",
     "v-gallery": "^1.2.4",

@@ -2,7 +2,7 @@
     <div class="my_goods container-fluid">
         <div class="item">
             <h4 class="text-success">我的趣事</h4>
-            <ul v-for="(item,index) in myFunList" :key="item._id" v-if="item.userName == 'userInfo.userName'">
+            <ul v-for="(item,index) in funList" :key="item._id" v-if="item.userName == 'userInfo.userName'">
                 <v-gallery :images="item.photo" class="image-box">
                     <a href="javascript:void(0);" :data-image="img" v-for="img in item.photo" :key="img">
                         <div class="bgbox">
@@ -30,27 +30,28 @@ export default {
     },
     computed: {
         ...mapGetters({
-            myFunList: "user/getFunList"
+            funList: "user/getFunList",
+
         })
     },
     methods: {
         removeOne(index, id) {
             const result = confirm("确定移除？一旦移除不可恢复");
             if (result) {
-                this.axios
-                    .get("user/delOneFun" + "?id=" + id)
-                    .then(res => {
-                        if (res.data.status == "success") {
-                            this.$toast.center(res.data.message);
-                            this.myFunList.splice(index, 1);
-                        } else {
-                            this.$toast.center(res.data.message);
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        this.$toast.center("系统繁忙，请稍后再试");
-                    });
+                if (result) {
+                    this.$store
+                        .dispatch("user/delOneFun", {
+                            index: index,
+                            id: id
+                        })
+                        .then(res=>{
+                            this.$toast.center(res);
+                            
+                        })
+                        .catch(err => {
+                            this.$toast.center(err);
+                        });
+                }
             }
             return;
         }
@@ -58,7 +59,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-
 h4 {
     border-bottom: 1px solid #000;
     padding-bottom: 10px;
@@ -113,7 +113,7 @@ h4 {
         p {
             padding-top: 10px;
         }
-        .remove{
+        .remove {
             cursor: pointer;
         }
     }

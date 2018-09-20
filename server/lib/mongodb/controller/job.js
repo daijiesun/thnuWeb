@@ -8,7 +8,6 @@ class Job {
 
   //添加兼职
   async addJob(req, res, next) {
-    //文本数据
     const body = req.body
     try {
       await JobModuls.create(body)

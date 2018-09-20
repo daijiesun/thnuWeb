@@ -41,7 +41,7 @@ class Notice {
   //移除公告
   async delNotice(req, res, next) {
     const id = req.query.id
-    await NoticeModuls.findByIdAndRemove({
+    await NoticeModuls.findOneAndDelete({
       _id: id
     }).then(results => {
       res.send({

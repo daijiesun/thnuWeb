@@ -45,7 +45,7 @@ class Exp {
   async delOneExp(req, res, next) {
     const id = req.query.id
     try {
-      const exp = await ExpModuls.findByIdAndRemove({
+      const exp = await ExpModuls.findOneAndDelete({
         _id: id
       })
       res.send({

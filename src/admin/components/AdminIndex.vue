@@ -1,7 +1,7 @@
 <template>
     <div class="admin_index container-fluid">
         <div class="center-block">
-            <h4 class="text-primary ">当前管理员：{{admin.adminName}},登录时间：{{this.date}}</h4>
+            <h4 class="text-primary ">当前管理员：{{admin.adminName}},登录时间：{{this.date}}{{expList.length}}</h4>
             <div id="echarts"></div>
         </div>
     </div>
@@ -15,8 +15,17 @@ export default {
     data() {
         return {
             date: null,
-            exp: this.expList
+            loseList: [],
+            jobList: [],
+            sportList: [],
+            loveList: [],
+            funList: [],
+            goodsList: [],
+            expList: []
         };
+    },
+    created() {
+        this.getData();
     },
     mounted() {
         this.date = time();
@@ -24,46 +33,137 @@ export default {
     },
     computed: {
         ...mapGetters({
-            admin: "admin/getAdminInfo",
-            loseList: "user/getLoseList",
-            jobList: "user/getJobList",
-            sportList: "user/getSportList",
-            loveList: "user/getLoveList",
-            funList: "user/getFunList",
-            goodsList: "user/getGoodsList",
-            expList: "user/getExpList"
+            admin: "admin/getAdminInfo"
         })
     },
     methods: {
+        getData() {
+            this.axios
+                .get("/user/getLoseList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.loseList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.axios
+                .get("/user/getJobList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.jobList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.axios
+                .get("/user/getSportList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.sportList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.axios
+                .get("/user/getLoveList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.loveList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.axios
+                .get("/user/getFunList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.funList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.axios
+                .get("/user/getGoodsList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.goodsList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            this.axios
+                .get("/user/getExpList")
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.expList = res.data.message;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
         getEcharts() {
             var myChart = echarts.init(document.getElementById("echarts"));
             // 绘制图表
-            myChart.setOption({
+            function fetchData(cb) {
+                // 通过 setTimeout 模拟异步加载
+                setTimeout(function() {
+                    cb({
+                        categories: [
+                            "衬衫",
+                            "羊毛衫",
+                            "雪纺衫",
+                            "裤子",
+                            "高跟鞋",
+                            "袜子"
+                        ],
+                        data: [5, 20, 36, 10, 10, 20]
+                    });
+                }, 1000);
+            }
+
+            // 初始 option
+            option = {
                 title: {
-                    text: "THNU社区后台数据统计图"
+                    text: "异步数据加载示例"
                 },
                 tooltip: {},
+                legend: {
+                    data: ["销量"]
+                },
                 xAxis: {
-                    data: [
-                        "寻物启事",
-                        "闲置商品",
-                        "表白墙",
-                        "兼职",
-                        "快递",
-                        "活动",
-                        "趣事"
-                    ]
+                    data: []
                 },
                 yAxis: {},
                 series: [
                     {
-                        name: "数据",
+                        name: "销量",
                         type: "bar",
-                        data: [
-                            
-                        ]
+                        data: []
                     }
                 ]
+            };
+
+            fetchData(function(data) {
+                myChart.setOption({
+                    xAxis: {
+                        data: data.categories
+                    },
+                    series: [
+                        {
+                            // 根据名字对应到相应的系列
+                            name: "销量",
+                            data: data.data
+                        }
+                    ]
+                });
             });
         }
     }
@@ -76,7 +176,7 @@ export default {
     border-bottom: 1px solid #000;
 }
 #echarts {
-    width: 700px;
+    // width: 700px;
     height: 400px;
 }
 </style>

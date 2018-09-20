@@ -46,30 +46,27 @@ export default {
     created() {
         this.$store.dispatch("user/getFunList");
     },
+    watch: {},
     computed: {
         ...mapGetters({
-            funList: "user/getFunList"
+            funList: "user/getFunList",
         })
     },
     methods: {
         removeOne(index, id) {
             const result = confirm("确定移除？一旦移除不可恢复");
             if (result) {
-                this.$store.dispatch("user/delOneFun",id);
-                // this.axios
-                //     .get("admin/delOneFun" + "?id=" + id)
-                //     .then(res => {
-                //         if (res.data.status == "success") {
-                //             this.$toast.center(res.data.message);
-                //             this.funList.splice(index, 1);
-                //         } else {
-                //             this.$toast.center(res.data.message);
-                //         }
-                //     })
-                //     .catch(err => {
-                //         console.log(err);
-                //         this.$toast.center("系统繁忙，请稍后再试");
-                //     });
+                this.$store
+                    .dispatch("user/delOneFun", {
+                        index: index,
+                        id: id
+                    })
+                    .then(res => {
+                        this.$toast.center(res);
+                    })
+                    .catch(err => {
+                        this.$toast.center(err);
+                    });
             }
             return;
         }

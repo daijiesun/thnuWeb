@@ -76,7 +76,6 @@ export default {
                         this.$toast.center(res.data.message);
                         this.formData = {};
                         this.imageList = [];
-                        console.dir(sumData);
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);

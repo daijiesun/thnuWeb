@@ -1,6 +1,8 @@
 import axios from 'axios'
-
+// import { resolve } from 'dns';
 const state = {
+  //提示信息
+  message: null,
   //当前用户信息
   userInfo: null,
   //所有用户信息
@@ -22,7 +24,10 @@ const state = {
 }
 
 const getters = {
-
+  //获取提示信息
+  getMessage: (state) => {
+    return state.message
+  },
   //获取当前信息
   getUserInfo: (state) => {
     return state.userInfo
@@ -62,6 +67,10 @@ const getters = {
 }
 
 const mutations = {
+  //设置提示信息
+  setMessage(state, info) {
+    state.message = info
+  },
   //设置用户信息
   setUserInfo(state, login) {
     state.userInfo = login
@@ -95,12 +104,14 @@ const mutations = {
     state.funList = list.reverse()
   },
   //移除趣事
-  delOneFun(state, {
-    _id
-  }) {
-    let index = state.funList.find(item => item._id === _id);
-    console.log(index);
-    state.funList.splice(index, 1);
+  delOneFun(state,
+    funObj
+  ) {
+    let _id = funObj.id
+    let items = state.funList.find(item => item._id == _id)
+    if (items) {
+      state.funList.splice(funObj.index, 1);
+    }
   },
   //设置商品列表
   setGoodsList(state, list) {
@@ -155,23 +166,30 @@ const actions = {
     })
     commit('setFunList', data)
   },
+  //添加趣事
+  // addOneFun({state,commit},funObj)
   //移除一个趣事
   async delOneFun({
-    state,
-    commit
-  }, _id) {
-    try {
-      await axios.get('user/delOneFun' + '?id=' + _id).then(res => {
-        if (res.data.status == 'success') {
-          this.$toast.center("移除成功");
-          commit('delOneFun', {
-            _id: _id
-          })
-        }
-      })
-    } catch (error) {
-
-    }
+      state,
+      commit
+    },
+    funObj
+  ) {
+     return new Promise((resolve, reject) => {
+      try {
+        axios.get('user/delOneFun' + '?id=' + funObj.id).then(res => {
+          if (res.data.status == 'success') {
+            commit('delOneFun', funObj),
+              resolve(res.data.message)
+          } else {
+            resolve(res.data.message)
+          }
+        })
+      } catch (error) {
+        console.log(error),
+          reject(error)
+      }
+    })
   },
 
   //获取商品并设置

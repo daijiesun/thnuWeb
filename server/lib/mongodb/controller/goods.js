@@ -1,6 +1,7 @@
 const GoodsModuls = require('../models/Goods')
 const date = new Date()
-
+const _ = require('lodash')
+const fs = require('fs')
 class Goods {
   constructor() {
 
@@ -71,13 +72,31 @@ class Goods {
   async delOneGoods(req, res, next) {
     const id = req.query.id
     try {
-      const Goods = await GoodsModuls.findByIdAndRemove({
+      const goods = await GoodsModuls.findByIdAndRemove({
         _id: id
       })
-      res.send({
-        status: 'success',
-        message: '移除成功'
-      })
+      if (!_.isEmpty(goods)) {
+         //移除图片
+        if (goods.photo.length) {
+          goods.photo.forEach(item => {
+            fs.unlink(item,function(err){
+              if(err){
+               return console.log(err);
+              }
+              console.log("移除图片成功");
+            })
+          })
+        }
+        res.send({
+          status: 'success',
+          message: '移除成功'
+        })
+      } else {
+        res.send({
+          status: 'error',
+          message: '该数据不存在，请刷新后重试'
+        })
+      }
     } catch (error) {
       res.send({
         status: 'error',

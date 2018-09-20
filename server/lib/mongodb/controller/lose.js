@@ -1,6 +1,7 @@
 const LoseModuls = require('../models/lose')
 const date = new Date()
-
+const _ = require('lodash')
+const fs = require('fs')
 class Lose {
   constructor() {
 
@@ -74,10 +75,28 @@ class Lose {
       const lose = await LoseModuls.findByIdAndRemove({
         _id: id
       })
-      res.send({
-        status: 'success',
-        message: '移除成功'
-      })
+      if (!_.isEmpty(lose)) {
+        if (lose.photo.length) {
+          lose.photo.forEach(item => {
+            fs.unlink(item, function (err) {
+              if (err) {
+                return console.log(err);
+              }
+              console.log("移除图片成功");
+            })
+          })
+        }
+        res.send({
+          status: 'success',
+          message: '移除成功'
+        })
+      } else {
+        res.send({
+          status: 'err',
+          message: '数据不存在，请刷新再试'
+        })
+      }
+
     } catch (error) {
       res.send({
         status: 'error',

@@ -1,6 +1,7 @@
 const LoveModuls = require('../models/Love')
 const date = new Date()
-
+const _ = require('lodash')
+const fs = require('fs')
 class Love {
   constructor() {
 
@@ -74,10 +75,29 @@ class Love {
       const love = await LoveModuls.findByIdAndRemove({
         _id: id
       })
-      res.send({
-        status: 'success',
-        message: '移除成功'
-      })
+
+      if (!_.isEmpty(love)) {
+        //移除图片
+        if (love.photo.length) {
+          love.photo.forEach(item => {
+            fs.unlink(item, function (err) {
+              if (err) {
+                return console.log(err);
+              }
+              console.log("移除图片成功");
+            })
+          })
+        }
+        res.send({
+          status: 'success',
+          message: '移除成功'
+        })
+      } else {
+        res.send({
+          status: 'error',
+          message: '该数据不存在，请刷新后重试'
+        })
+      }
     } catch (error) {
       res.send({
         status: 'error',
