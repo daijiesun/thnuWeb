@@ -76,8 +76,6 @@ export default {
             }
             var form = document.getElementById("my-form")
             var sumData = new FormData(form)
-            // this.sumData.append("tel", this.formData.tel);
-            // this.sumData.append("content", this.formData.content);
             sumData.append("userName", "userInfo.userName");
             this.$loading("发布中...");
             const head = {

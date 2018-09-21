@@ -134,7 +134,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "../assets/css/content.css";
 .thnu_Loves {
   width: 90%;
   margin: 0 auto;

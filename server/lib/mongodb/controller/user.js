@@ -19,6 +19,24 @@ function checkFormData(formData) {
   return result
 }
 
+function modifyUserCheckFormDate(formData) {
+  let result = null
+  if (formData.email && !validator.isEmail(formData.email) || !formData.email) {
+    result = '输入正确格式的邮箱地址'
+  }
+  if (formData.tel && !validator.isMobilePhone(formData.tel)) {
+    result = '输出正确的电话号码'
+  }
+  if (formData.userName && !validator.isUserName(formData.userName) || !formData.userName) {
+    result = '输入3-20个字符的用户名'
+  }
+  if (formData.name && !validator.isName(formData.name)) {
+    result = '输入2-6个字符的姓名'
+  }
+  return result
+}
+
+
 class User {
   constructor() {
     //构造方法
@@ -150,7 +168,7 @@ class User {
     console.log(body)
     await UserModuls.findByIdAndUpdate({
       // _id: body.id
-      _id:req.session.user._id
+      _id: req.session.user._id
     }, {
       $set: {
         password: body.password
@@ -163,12 +181,94 @@ class User {
           message: '修改失败，稍后再试'
         })
       } else if (success) {
+        console.log(user);
         res.send({
           status: 'success',
           message: '修改成功'
         })
       }
     })
+  }
+  //修改个人资料
+  async modifyInfo(req, res, next) {
+    const body = req.body
+    if (modifyUserCheckFormDate(body)) {
+      res.send({
+        status: 'error',
+        message: modifyUserCheckFormDate(body)
+      })
+    } else {
+      try {
+        //先判断当前传入的用户名或者邮箱是否和以前的一样
+        const oldUser = await UserModuls.findOne({
+          _id: req.session.user._id
+        })
+        if (oldUser.userName != body.userName) { //如果和以前的用户名不一样，则判断新的用户名在数据库中是否存在
+          const exist = await UserModuls.findOne({
+            userName: body.userName
+          })
+          if (!_.isEmpty(exist)) { //存在这个用户名
+            res.send({
+              status: 'error',
+              message: '该用户名已经存在'
+            })
+          }
+        }
+        //判断邮箱
+        if (oldUser.email != body.email) { //如果和以前的邮箱不一样，则判断新的邮箱在数据库中是否存在
+          const exist = await UserModuls.findOne({
+            email: body.email
+          })
+          if (!_.isEmpty(exist)) { //存在这个邮箱
+            res.send({
+              status: 'error',
+              message: '该邮箱已经存在'
+            })
+          }
+        }
+        const user = await UserModuls.findOneAndUpdate({
+          _id: req.session.user._id,
+        }, {
+          $set: {
+            userName: body.userName,
+            email: body.email,
+            name: body.name,
+            tel: body.tel,
+            notes: body.notes
+          }
+        }, function (err, success) {
+          if (err) {
+            console.log("修改密码错误，数据库返回：" + err)
+            res.send({
+              status: 'error',
+              message: '修改失败，稍后再试'
+            })
+          }
+        });
+        if (!_.isEmpty(user)) {
+          let newUser = await UserModuls.findOne({
+            _id: user._id
+          })
+          req.session.user = newUser
+          res.send({
+            status: 'success',
+            message: '修改成功'
+          })
+        } else {
+          res.send({
+            status: 'error',
+            message: '加载数据失败，请刷新试试'
+          })
+        }
+      } catch (error) {
+        res.send({
+          status: 'error',
+          message: '系统繁忙，稍后再试'
+        })
+      }
+    }
+
+
   }
 }
 

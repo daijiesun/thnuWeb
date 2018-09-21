@@ -2,7 +2,7 @@
 <template>
     <div class="container-fluid">
         <h4 class="text-primary">用户管理 > 用户列表 </h4>
-        <div class="table-responsive" v-if="userList">
+        <div class="table-responsive" v-if="userList.length">
             <table id="my_table" class="table table-striped table-hover">
                 <thead class="text-primary">
                     <tr>

@@ -36,6 +36,11 @@ router.get('/admin/session', (req, res) => {
 
   })
 })
+router.get('/getIp', (req, res) => {
+  res.send({
+    ip: req.ip
+  })
+})
 
 //管理员相关路由
 router.get('/admin/getIndexInfo', AdminIndex.getIndexInfo) //admin首页图表信息
@@ -79,6 +84,7 @@ router.get('/user/session', (req, res) => {
 router.post('/user/register', User.userRegister) //用户注册
 router.post('/user/login', User.userLogin) //用户登录
 router.get('/user/logout', User.userLogout) //用户退出
+router.post('/user/modifyInfo', upload.single('file'), User.modifyInfo) //修改资料
 //趣事
 router.get('/user/getFunList', Fun.getFunList) //获取所有趣事（前端自行过滤）
 router.post('/user/addFun', upload.array('files', 20), Fun.addFun) //添加趣事

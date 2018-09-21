@@ -132,8 +132,6 @@ li{
 .glyphicon.glyphicon-volume-down{
     color:#e92322;
     font-size: 22px;
-    /* line-height: ; */
-    /* padding-top: 10px; */
 }
 .Many_Notice{
     white-space: nowrap;
@@ -143,20 +141,15 @@ li{
 .Many_Look.row{
     margin: 0;
 }
-.Many_Look > .col-lg-12{
-    /* background-color: goldenrod; */
-    padding-top: 2px;
-}
 .Many_Look > .col-lg-12 > li > a{
     display: block;
-    width: 80%;
-    padding-left:30px;
+    padding-top: 3px;
+    width: 90%;
     color:rgb(51,51,51);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     float: left;
-    /* background-color: yellow; */
 }
 .Many_Look > .col-lg-12 > li > span{
     display: block;

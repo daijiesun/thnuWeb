@@ -2,7 +2,7 @@
     <!-- 寻物启事 -->
     <div class="thnu_lose">
         <h4 class="text-primary">服务管理 > 寻物启事 </h4>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="loseList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -33,6 +33,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content" v-else>暂无信息</div>
     </div>
 </template>
 <script>

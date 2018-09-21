@@ -2,7 +2,7 @@
     <!-- 趣事 -->
     <div class="thnu_fun">
         <h4 class="text-primary">服务管理 > 校园趣事 </h4>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="funList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -35,6 +35,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content" v-else>暂无信息</div>
     </div>
 </template>
 <script>
@@ -49,7 +50,7 @@ export default {
     watch: {},
     computed: {
         ...mapGetters({
-            funList: "user/getFunList",
+            funList: "user/getFunList"
         })
     },
     methods: {

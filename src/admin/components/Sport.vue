@@ -2,7 +2,7 @@
     <!-- 校园活动 -->
     <div class="admin_sport">
         <h4 class="text-primary">服务管理 > 校园活动 </h4>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="sportList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -32,6 +32,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content" v-else>暂无信息</div>
     </div>
 </template>
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="thnu_footer container-fluid">
+    <div class="thnu_footer container-fluid navbar-fixed-bottom">
         <div class="about-me">
             <a href="#">关于我们</a>
             <a href="#" class="border">联系我们</a>
@@ -22,7 +22,7 @@ export default {
 .thnu_footer{
     margin-top: 30px;
     border-top: 1px solid #eee;
-    background-color: #e7e7e7;
+    background-color: #eee;
     text-align: center;
 }
 .about-me{

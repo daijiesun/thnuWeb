@@ -5,7 +5,11 @@ function isEmail(email) {
 }
 
 function isUserName(name) {
-  return name && name.length >=2 && name.length < 20
+  return name && name.length >= 2 && name.length < 20
+}
+
+function isName(name) {
+  return name && name.length >= 2 && name.length <= 6
 }
 
 function isPassword(password) {
@@ -13,12 +17,13 @@ function isPassword(password) {
 }
 
 function isMobilePhone(phone) {
-  return phone && validator.isMobilePhone(phone)
+  return phone && validator.isMobilePhone(phone) && phone.length == 11
 }
 
 module.exports = {
   isEmail,
   isUserName,
+  isName,
   isPassword,
   isMobilePhone
 }

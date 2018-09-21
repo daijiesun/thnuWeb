@@ -135,22 +135,22 @@
         <div class="thnu_Many col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <h3 class="thnu_Many title">系统公告
                 <span id="notice" class="glyphicon glyphicon-volume-up"></span>
-                <!-- <span class="glyphicon glyphicon-volume-down"></span>              -->
             </h3>
-
-            <li v-for="(item,index) in notices" :key="index" v-if="index<2">
-                <p class="Many_Notice">{{item.date}}{{item.content}}</p>
-            </li>
-
+            <div class="Many_Look row">
+                <div class="col-lg-12">
+                    <li v-for="(item,index) in notices" :key="index">
+                        <p class="Many_Notice" v-if="index<3">{{item.date.slice(6,10)+':'}}{{item.content}}</p>
+                    </li>
+                </div>
+            </div>
             <h3 class="thnu_Many title">寻物启事</h3>
             <div class="Many_Look row">
                 <div class="col-lg-12">
                     <li v-for="(item,index) in searchList" :key="index" v-if="index<9">
-                        <span>{{item.date}}</span>
-                        <router-link :to="{path:'/lose'}">{{item.content}}</router-link>
+                        <!-- <span></span> -->
+                        <router-link :to="{path:'/lose'}">{{item.date.slice(6,10)+':'}}{{item.content}}</router-link>
                     </li>
                 </div>
-
             </div>
         </div>
     </div>
@@ -175,8 +175,6 @@ export default {
                 }
             ],
             notices: [],
-            info:
-                "9月29日由于网站男作者无聊整容停止维护,造成麻烦,望同学们理解和见谅哈!",
             loveimg:
                 "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536758431389&di=2d3188e702f19e9d64277641b2ab57da&imgtype=0&src=http%3A%2F%2Fimgq.duitang.com%2Fuploads%2Fitem%2F201506%2F13%2F20150613230428_Y4MxS.thumb.700_0.jpeg",
 
@@ -207,7 +205,7 @@ export default {
                 .get("/index/getNotice")
                 .then(res => {
                     if (res.data.status == "success") {
-                        this.notices = res.data.message;
+                        this.notices = res.data.message.reverse();
                     }
                 })
                 .catch(err => {
@@ -218,7 +216,7 @@ export default {
                 .get("/user/getLoseList")
                 .then(res => {
                     if (res.data.status == "success") {
-                        this.searchList = res.data.message;
+                        this.searchList = res.data.message.reverse();
                     }
                 })
                 .catch(err => {

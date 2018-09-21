@@ -6,21 +6,21 @@ const state = {
   //当前用户信息
   userInfo: null,
   //所有用户信息
-  userList: null,
+  userList: [],
   //趣事列表
-  funList: null,
+  funList: [],
   //商品列表
-  goodsList: null,
+  goodsList: [],
   //快递列表
-  expList: null,
+  expList: [],
   //寻物启事列表
-  loseList: null,
+  loseList: [],
   //兼职列表
-  jobList: null,
+  jobList: [],
   //活动列表
-  sportList: null,
+  sportList: [],
   //表白
-  loveList: null
+  loveList: [],
 }
 
 const getters = {
@@ -75,6 +75,10 @@ const mutations = {
   setUserInfo(state, login) {
     state.userInfo = login
   },
+  //更新用户
+  modifyUserInfo(state, newUser) {
+    state.userInfo = newUser
+  },
   //设置用户列表
   setUserList(state, list) {
     state.userList = list.reverse()
@@ -104,9 +108,7 @@ const mutations = {
     state.funList = list.reverse()
   },
   //移除趣事
-  delOneFun(state,
-    funObj
-  ) {
+  delOneFun(state,funObj) {
     let _id = funObj.id
     let items = state.funList.find(item => item._id == _id)
     if (items) {
@@ -131,7 +133,13 @@ const actions = {
     })
     commit('setUserInfo', data)
   },
-
+  //触发修改用户信息
+  modifyUserInfo({
+    state,
+    commit
+  }, newUser) {
+    commit('modifyUserInfo', newUser)
+  },
   //获取所有用户信息
   async getList({
     commit

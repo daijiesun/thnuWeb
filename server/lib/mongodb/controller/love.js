@@ -84,7 +84,6 @@ class Love {
               if (err) {
                 return console.log(err);
               }
-              console.log("移除图片成功");
             })
           })
         }

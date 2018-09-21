@@ -61,7 +61,7 @@ export default {
             var sumData = new FormData(form)  
             //添加用户名          
             sumData.append("userName", "userInfo.userName");
-            console.log(sumData);
+            // console.log(sumData);
             this.$loading("发布中...");
             const head = {
                 header: {

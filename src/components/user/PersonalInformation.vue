@@ -2,26 +2,26 @@
     <!-- 个人资料 -->
     <div class="container-fluid">
         <div class="row">
-            <form class="per_info">
+            <form class="per_info" id="myform">
                 <div class="form-group">
                     <label for="userName">用户名</label>
-                    <input type="text" class="form-control" id="userName" placeholder="无" v-model="userInfo.userName">
+                    <input type="text" class="form-control" id="userName" name="userName" v-model="userInfo.userName">
                 </div>
                 <div class="form-group">
                     <label for="email">邮箱</label>
-                    <input type="email" class="form-control" id="email" placeholder="无" v-model="userInfo.email">
+                    <input type="email" class="form-control" id="email" name="email" v-model="userInfo.email">
                 </div>
                 <div class="form-group">
                     <label for="name">真实姓名</label>
-                    <input type="text" class="form-control" id="name" placeholder="无" v-model="userInfo.name">
+                    <input type="text" class="form-control" id="name" name="name" v-model="userInfo.name">
                 </div>
                 <div class="form-group">
                     <label for="tel">电话</label>
-                    <input type="text" class="form-control" id="tel" placeholder="无" v-model="userInfo.tel">
+                    <input type="text" class="form-control" id="tel" name="tel" v-model="userInfo.tel">
                 </div>
                 <div class="form-group">
                     <label for="notes">个人简介</label>
-                    <textarea type="text" class="form-control" id="notes" rows=4 placeholder="无" v-model="userInfo.notes" />
+                    <textarea type="text" class="form-control" id="notes" rows=4 name="notes" placeholder="无" v-model="userInfo.notes" />
                 </div>
                 <div>
                     <button class="btn btn-danger" @click="upload" type="button">确认修改</button>
@@ -32,25 +32,52 @@
     </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     data() {
-        return {
-        };
+        return {};
+    },
+    mounted() {
+        this.$store.dispatch("user/getUserSession");
     },
     computed: {
         ...mapGetters({
             userInfo: "user/getUserInfo"
         })
     },
-    methods: {}
+    methods: {
+        upload: function() {
+            this.$loading("修改中");
+            var form = document.getElementById("myform");
+            //使用这种表单数据传递，后台必须有相应的设置
+            var data = new FormData(form);
+            const head = {
+                header: {
+                    "Content-type": "multipart/form-data"
+                }
+            };
+            this.axios
+                .post("user/modifyInfo", data, head)
+                .then(res => {
+                    if (res.data.status == "success") {
+                        this.$loading.close();
+                        this.$toast.center(res.data.message);
+                        // this.$store.dispatch("user/getUserSession");
+                    } else {
+                        this.$loading.close();
+                        this.$toast.center(res.data.message);
+                    }
+                })
+                .catch(err => {
+                    this.$loading.close();
+                    console.log(err);
+                    this.$toast.center("系统繁忙，刷新试试");
+                });
+        }
+    }
 };
 </script>
 <style lang="less" scoped>
-* {
-    //去掉row默认的margin
-    // margin: 0;
-}
 .per_info {
     // padding: 20px 30px;
 }

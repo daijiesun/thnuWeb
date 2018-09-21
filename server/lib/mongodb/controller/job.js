@@ -55,7 +55,6 @@ class Job {
         status: 'error',
         message: '系统繁忙，稍后再试'
       })
-      console.log(error);
     }
   }
 }

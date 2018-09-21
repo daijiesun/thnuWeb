@@ -8,7 +8,7 @@
             </div>
             <button class="btn btn-success" @click="addNotice">添加公告</button>
         </form>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="this.noticeList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -30,6 +30,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content" v-else>暂无信息</div>
     </div>
 </template>
 <script>
@@ -57,7 +58,7 @@ export default {
                     }
                 })
                 .catch(err => {
-                     this.$toast.center("获取数据发生错误，请稍后再试");
+                    this.$toast.center("获取数据发生错误，请稍后再试");
                 });
         },
         // 移除公告
@@ -70,11 +71,11 @@ export default {
                         if (response.data.status == "success") {
                             this.noticeList.splice(index, 1);
                         } else {
-                             this.$toast.center(response.data.message);
+                            this.$toast.center(response.data.message);
                         }
                     })
                     .catch(err => {
-                         this.$toast.center("系统繁忙，稍后再试");
+                        this.$toast.center("系统繁忙，稍后再试");
                     });
             }
         },
@@ -89,11 +90,11 @@ export default {
                             this.getNotice();
                             this.addContent = null;
                         } else {
-                             this.$toast.center(res.data.message);
+                            this.$toast.center(res.data.message);
                         }
                     });
             } else {
-                 this.$toast.center("输入内容不能为空");
+                this.$toast.center("输入内容不能为空");
             }
         }
     }

@@ -2,7 +2,7 @@
     <!-- 二手商品 -->
     <div class="admin_goods">
         <h4 class="text-primary">服务管理 > 二手商品 </h4>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="goodsList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -34,6 +34,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content" v-else>暂无信息</div>
     </div>
 </template>
 <script>

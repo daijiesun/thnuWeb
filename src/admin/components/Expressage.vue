@@ -2,7 +2,7 @@
     <!-- 快递服务 -->
     <div class="thnu_expressage">
         <h4 class="text-primary">服务管理 > 快递服务 </h4>
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="expressageList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -38,6 +38,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content"  v-else>暂无信息</div>
     </div>
 </template>
 <script>
@@ -45,8 +46,7 @@ import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
     data() {
-        return {
-        };
+        return {};
     },
     created() {
         this.$store.dispatch("user/getExpList");

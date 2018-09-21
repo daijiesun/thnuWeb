@@ -57,7 +57,8 @@ export default {
                     if (res.data.status == "success") {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
-                        window.location = "/";
+                        // window.location = "/";
+                        this.$router.push("/personalCenter");
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);

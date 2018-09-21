@@ -2,8 +2,7 @@
     <!-- 表白墙 -->
     <div class="thnu_love">
         <h4 class="text-primary">服务管理 > 表白墙 </h4>
-
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="loveList.length">
             <table class="table table-hover">
                 <thead class="text-primary">
                     <tr>
@@ -34,6 +33,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="no-content" v-else>暂无信息</div>
     </div>
 </template>
 <script>

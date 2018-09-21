@@ -23,8 +23,9 @@ export default {
 };
 </script>
 <style lang="less">
-.padding{
+.padding {
     padding-top: 70px;
+    padding-bottom: 100px;
 }
 </style>
 
