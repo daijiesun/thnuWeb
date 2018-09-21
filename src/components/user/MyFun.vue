@@ -2,7 +2,7 @@
     <div class="my_goods container-fluid">
         <div class="item">
             <h4 class="text-success">我的趣事</h4>
-            <ul v-for="(item,index) in funList" :key="item._id" v-if="item.userName == 'userInfo.userName'">
+            <ul v-for="(item,index) in funList" :key="item._id" v-if="item.userName == userInfo.userName">
                 <v-gallery :images="item.photo" class="image-box">
                     <a href="javascript:void(0);" :data-image="img" v-for="img in item.photo" :key="img">
                         <div class="bgbox">
@@ -31,7 +31,7 @@ export default {
     computed: {
         ...mapGetters({
             funList: "user/getFunList",
-
+            userInfo: "user/getUserInfo"
         })
     },
     methods: {
@@ -44,9 +44,8 @@ export default {
                             index: index,
                             id: id
                         })
-                        .then(res=>{
+                        .then(res => {
                             this.$toast.center(res);
-                            
                         })
                         .catch(err => {
                             this.$toast.center(err);

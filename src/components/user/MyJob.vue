@@ -3,7 +3,7 @@
 
         <div class="item">
             <h4 class="text-success">我的发布的兼职</h4>
-            <ul v-for="(item,index) in mySportList" :key="item._id" v-if="item.userName == 'userInfo.userName'">
+            <ul v-for="(item,index) in mySportList" :key="item._id" v-if="item.userName == userInfo.userName">
                 <ul>
                     <p>发布时间：{{item.date}}</p>
                     <p>内容详情：{{item.content}}</p>
@@ -25,7 +25,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mySportList: "user/getJobList"
+            mySportList: "user/getJobList",
+            userInfo: "user/getUserInfo"
+            
         })
     },
     methods: {

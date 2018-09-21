@@ -35,7 +35,9 @@ export default {
                         if (response.data.status == "success") {
                             //登录成功
                             this.$loading.close();
+                            //重新获取管理员信息，然后更新试图，不需要跳转
                             this.$store.dispatch("admin/getAdminSession");
+                            this.$router.push('/admin');
                         } else {
                             this.$loading.close();
                             this.$toast.center("账号密码错误");

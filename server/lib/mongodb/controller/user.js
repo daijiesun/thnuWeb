@@ -72,6 +72,13 @@ class User {
     const body = req.body
     const user = await UserModuls.findOne(body)
     if (!_.isEmpty(user)) {
+      await UserModuls.updateOne({
+        _id: user._id
+      }, {
+        $set: {
+          login: false
+        }
+      })
       req.session.user = user
       res.send({
         status: 'success',
@@ -84,7 +91,29 @@ class User {
       })
     }
   }
-
+  //退出
+  async userLogout(req, res, next) {
+    try {
+      await UserModuls.updateOne({
+        _id: req.session.user._id
+      }, {
+        $set: {
+          login: false
+        }
+      })
+      req.session.user = null
+      res.send({
+        status: 'success',
+        message: '退出成功'
+      })
+    } catch (error) {
+      console.log(error)
+      res.send({
+        status: 'error',
+        message: '系统繁忙，稍后再试'
+      })
+    }
+  }
   //获取用户列表
   async getUserList(req, res, next) {
     const userList = await UserModuls.find()
@@ -115,12 +144,13 @@ class User {
     }
 
   }
-  //管理员修改用户密码
+  //修改用户密码
   async modifyPassword(req, res, next) {
     const body = req.body
     console.log(body)
     await UserModuls.findByIdAndUpdate({
-      _id: body.id
+      // _id: body.id
+      _id:req.session.user._id
     }, {
       $set: {
         password: body.password

@@ -64,7 +64,7 @@ export default {
                     for (let i = 0; i < dataList.length; i++) {
                         list.push({ value: dataList[i], name: nameList[i] });
                     }
-                    console.log(list);
+                    // console.log(list);
                     myChart.hideLoading();
                     myChart.setOption({
                         series: [

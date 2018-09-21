@@ -175,7 +175,7 @@ const actions = {
     },
     funObj
   ) {
-     return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         axios.get('user/delOneFun' + '?id=' + funObj.id).then(res => {
           if (res.data.status == 'success') {

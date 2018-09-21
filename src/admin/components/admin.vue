@@ -181,8 +181,9 @@ export default {
             this.axios("/admin/logout")
                 .then(response => {
                     console.log("admin logo out");
-                    window.location = "/";
-                    // this.$router.push({ name: "Admin" });
+                    this.$store.dispatch("admin/getAdminSession");
+                    // window.location = "/";
+                    this.$router.push({ name: "Admin" });
                 })
                 .catch(err => {
                     console.log(err);

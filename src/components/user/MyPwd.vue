@@ -28,32 +28,35 @@ export default {
         //id: this.$route.params
         //修改用户
         modifyPassword: function() {
+            console.log(this.$route.params.id);
             if (this.modifyForm.password !== this.modifyForm.passwordOk) {
-                 this.$toast.center("两次密码不同，请重新输入");
+                this.$toast.center("两次密码不同，请重新输入");
                 return;
             } else if (
                 !(this.modifyForm.password && this.modifyForm.passwordOk)
             ) {
-                 this.$toast.center("输入不能为空");
-                return 
+                this.$toast.center("输入不能为空");
+                return;
             }
             let passwordObj = {
-                id: this.$route.params.id,
+                // id: this.$route.params.id,
                 password: this.crypto(this.modifyForm.password)
             };
             this.axios
                 .post("/admin/modifyPassword", passwordObj)
                 .then(response => {
                     if (response.data.status == "success") {
-                         this.$toast.center("修改成功");
-                        this.$router.push({path: '/admin/userManage'});
+                        this.$toast.center("修改成功");
+                        this.$router.push({ path: "/personalCenter" });
                     } else {
-                         this.$toast.center(response.data.message);
+                        this.$toast.center(response.data.message);
                     }
                 })
                 .catch(err => {
                     console.log(err);
-                    this.$router.push({path: '/personalCenter/personalInformation'});
+                    this.$router.push({
+                        path: "/personalCenter/personalInformation"
+                    });
                 });
         }
     }

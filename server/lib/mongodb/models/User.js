@@ -37,7 +37,7 @@ const userSchema = new Schema({
   //邮箱
   email: String,
   //头像
-  avatr: {
+  avatar: {
     type: String,
     default: '/public/upload/images/avater.jpg'
   }, 

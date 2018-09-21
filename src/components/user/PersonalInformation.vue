@@ -32,13 +32,17 @@
     </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            userInfo: {}
         };
     },
-    mounted() {},
+    computed: {
+        ...mapGetters({
+            userInfo: "user/getUserInfo"
+        })
+    },
     methods: {}
 };
 </script>

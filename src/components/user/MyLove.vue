@@ -2,7 +2,7 @@
     <div class="my_goods container-fluid">
         <div class="item">
             <h4 class="text-success">我的表白</h4>
-            <ul v-for="(item,index) in myLoveList" :key="item._id" v-if="item.userName == 'userInfo.userName'">
+            <ul v-for="(item,index) in myLoveList" :key="item._id" v-if="item.userName == userInfo.userName">
                 <v-gallery :images="item.photo" class="image-box">
                     <a href="javascript:void(0);" :data-image="img" v-for="img in item.photo" :key="img">
                         <div class="bgbox">
@@ -30,7 +30,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            myLoveList: "user/getLoveList"
+            myLoveList: "user/getLoveList",
+            userInfo: "user/getUserInfo"
         })
     },
     methods: {
@@ -58,7 +59,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-
 h4 {
     border-bottom: 1px solid #000;
     padding-bottom: 10px;
@@ -113,7 +113,7 @@ h4 {
         p {
             padding-top: 10px;
         }
-        .remove{
+        .remove {
             cursor: pointer;
         }
     }

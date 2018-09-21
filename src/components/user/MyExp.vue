@@ -1,7 +1,7 @@
 <template>
     <div class="my_goods">
         <div class="item">
-            <h4 class="text-primary">{{'userInfo.userName'}}的快递单</h4>
+            <h4 class="text-primary">{{userInfo.userName}}的快递单</h4>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="text-primary">
@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item,index) in myExpList" :key="item._id" v-show="item.userName == 'userInfo.userName'">
+                        <tr v-for="(item,index) in myExpList" :key="item._id" v-show="item.userName == userInfo.userName">
                             <td>{{item.userName}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.order}}</td>
@@ -54,6 +54,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            userInfo: "user/getUserInfo",
             myExpList: "user/getExpList"
         })
     },

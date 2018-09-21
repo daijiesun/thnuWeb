@@ -20,29 +20,5 @@ export default {
 <style scoped>
 .thnu_Navigation {
 }
-@media (max-width: 768px) {
-    .thnu_Navigation {
-        padding: 0 10px;
-        margin-top: 51px;
-    }
-}
-@media (min-width: 768px) and (max-width: 992px) {
-    .thnu_Navigation {
-        padding: 50px 30px;
-        margin-top: 51px;
-    }
-}
-@media (min-width: 992px) and (max-width: 1200px) {
-    .thnu_Navigation {
-        padding: 50px 60px;
-        margin-top: 51px;
-    }
-}
-@media (min-width: 1200px) {
-    .thnu_Navigation {
-        padding: 50px 90px;
-        margin-top: 51px;
-    }
-}
 </style>
 

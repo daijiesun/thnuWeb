@@ -94,14 +94,15 @@
 </template>
 <script>
 import PersonalInformation from "./PersonalInformation.vue";
+import { mapGetters } from "vuex";
 export default {
     data() {
-        return {
-            userInfo: {
-                userName: "haha",
-                avatar: "static/images/ershou.jpg"
-            }
-        };
+        return {};
+    },
+    computed: {
+        ...mapGetters({
+            userInfo: "user/getUserInfo"
+        })
     },
     components: {
         PersonalInformation
