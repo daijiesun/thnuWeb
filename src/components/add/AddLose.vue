@@ -46,6 +46,7 @@ export default {
     methods: {
         //实现预览
         uploadDone(e) {
+            this.imageList = [];
             const list = document.getElementById("img").files;
             const liObj = document.getElementById("images");
             for (var i = 0; i < list.length; i++) {
@@ -71,7 +72,7 @@ export default {
             var sumData = new FormData(form);
             // this.sumData.append("tel", this.formData.tel);
             // this.sumData.append("content", this.formData.content);
-            sumData.append("userName", "userInfo.userName");
+            sumData.append("userName", this.userInfo.userName);
             this.$loading("发布中...");
             const head = {
                 header: {
@@ -79,7 +80,7 @@ export default {
                 }
             };
             this.axios
-                .post("/user/addLose",sumData, head)
+                .post("/user/addLose", sumData, head)
                 .then(res => {
                     if (res.data.status == "success") {
                         this.$loading.close();

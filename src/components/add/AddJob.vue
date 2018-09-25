@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         upload() {
-            this.formData.userName = "userInfo.userName";
+            this.formData.userName = this.userInfo.userName;
             this.$loading("发布中...");
             this.axios
                 .post("/user/addJob", this.formData)
@@ -40,7 +40,6 @@ export default {
                         this.$toast.center(res.data.message);
                         this.formData = {};
                         this.imageList = [];
-                        this.$router.push({name: 'MyJob'})
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);

@@ -12,7 +12,7 @@ const mongo = require('./config/db')
 const router = require('./routes/router')
 //处理路由模式（history）的中间件
 const history = require('connect-history-api-fallback')
-const ipPort = 3000
+const ipPort = 80
 //连接数据库
 mongo.connect();
 

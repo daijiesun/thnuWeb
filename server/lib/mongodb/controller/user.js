@@ -27,9 +27,10 @@ function modifyUserCheckFormDate(formData) {
   if (formData.tel && !validator.isMobilePhone(formData.tel)) {
     result = '输出正确的电话号码'
   }
-  if (formData.userName && !validator.isUserName(formData.userName) || !formData.userName) {
-    result = '输入3-20个字符的用户名'
-  }
+  //这里去掉了修改用户名的功能
+  // if (formData.userName && !validator.isUserName(formData.userName) || !formData.userName) {
+  //   result = '输入3-20个字符的用户名'
+  // }
   if (formData.name && !validator.isName(formData.name)) {
     result = '输入2-6个字符的姓名'
   }
@@ -181,7 +182,6 @@ class User {
           message: '修改失败，稍后再试'
         })
       } else if (success) {
-        console.log(user);
         res.send({
           status: 'success',
           message: '修改成功'
@@ -190,6 +190,7 @@ class User {
     })
   }
   //修改个人资料
+  //这里去掉了修改用户名的功能，上面的表单检查也得去掉
   async modifyInfo(req, res, next) {
     const body = req.body
     if (modifyUserCheckFormDate(body)) {
@@ -203,17 +204,18 @@ class User {
         const oldUser = await UserModuls.findOne({
           _id: req.session.user._id
         })
-        if (oldUser.userName != body.userName) { //如果和以前的用户名不一样，则判断新的用户名在数据库中是否存在
-          const exist = await UserModuls.findOne({
-            userName: body.userName
-          })
-          if (!_.isEmpty(exist)) { //存在这个用户名
-            res.send({
-              status: 'error',
-              message: '该用户名已经存在'
-            })
-          }
-        }
+        // if (oldUser.userName != body.userName) { //如果和以前的用户名不一样，则判断新的用户名在数据库中是否存在
+        //   const exist = await UserModuls.findOne({
+        //     userName: body.userName
+        //   })
+        //   if (!_.isEmpty(exist)) { //存在这个用户名
+        //     res.send({
+        //       status: 'error',
+        //       message: '该用户名已经存在'
+        //     })
+        //   }
+        // }
+
         //判断邮箱
         if (oldUser.email != body.email) { //如果和以前的邮箱不一样，则判断新的邮箱在数据库中是否存在
           const exist = await UserModuls.findOne({
@@ -230,7 +232,7 @@ class User {
           _id: req.session.user._id,
         }, {
           $set: {
-            userName: body.userName,
+            // userName: body.userName,
             email: body.email,
             name: body.name,
             tel: body.tel,
@@ -238,7 +240,7 @@ class User {
           }
         }, function (err, success) {
           if (err) {
-            console.log("修改密码错误，数据库返回：" + err)
+            console.log("用户信息修改错误，数据库返回：" + err)
             res.send({
               status: 'error',
               message: '修改失败，稍后再试'
@@ -261,6 +263,7 @@ class User {
           })
         }
       } catch (error) {
+        console.log(error)
         res.send({
           status: 'error',
           message: '系统繁忙，稍后再试'

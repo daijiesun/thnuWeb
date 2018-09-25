@@ -65,8 +65,8 @@
 </script>
 <style lang="less" scoped>
 .thnu_Goods{
-    border-bottom: 1px solid #000;
-    background-color: lawngreen;
+    // border-bottom: 1px solid #000;
+    // background-color: lawngreen;
 }
 .image-box{
     a {
@@ -85,7 +85,7 @@
             img{ width: 200px; height: 200px;display: block;}
         }
         .img-title {
-            background-color: yellow;
+            // background-color: yellow;
             width: 209px;
             height: 30px;
             overflow: hidden;

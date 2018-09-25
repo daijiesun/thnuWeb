@@ -11,7 +11,6 @@ class Exp {
     //文本数据
     try {
       const body = req.body
-      console.log(body)
       await ExpModuls.create(body)
       res.send({
         status: 'success',

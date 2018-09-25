@@ -31,7 +31,7 @@ export default {
     computed: {
         ...mapGetters({
             myGoodsList: "user/getGoodsList",
-            userInfo: "user/gerUserInfo"
+            userInfo: "user/getUserInfo"
         })
     },
     methods: {

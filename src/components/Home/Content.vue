@@ -8,7 +8,7 @@
             <div class="Love_content row">
                 <router-link :to="{path:'/love'}" class="col-xs-6 col-md-12 col-lg-12">
                     <img :src="loveimg" alt="">
-                    <span> 大蠢猪,我太喜欢你了</span>
+                    <span> 这里是广告位，需要的朋友联系我</span>
                 </router-link>
                 <div class="Love_love col-xs-6 col-md-12 col-lg-12">
                     <li v-for="(item,index) in loveword" :key="index">
@@ -168,7 +168,7 @@ export default {
             news: [
                 {
                     newsimg:
-                        "https://img10.ccnxs.cn/uploadfile/hbase/201808/0803/HBC5B640F8768FBB.jpeg",
+                        "/static/images/indexNews.jpg",
                     newstitle: "中国最大的镇，面积超越台湾省，相当于25个深圳",
                     newscontent:
                         "我们从小就学习各种知识，去了解这个世界，了解我们的国家，几乎人人都知道我们是世界上面积位列第三的国家。中华民族上下五千年，历史悠久，领土广阔。有56个民族分布在23个省、5个自治区、4个直辖市、2个特别行政区，共计661个城市。每一个省每一个市每一个镇人口数量不一、面积各异。其实我们大部分人基本对全国省、市多少都会有些了解，但对于一些小镇就不太了解了。比如说我国最大的镇是哪个地方的？这是属于很精细的知识点了，今天我们一起来学习一下！"
@@ -176,7 +176,7 @@ export default {
             ],
             notices: [],
             loveimg:
-                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536758431389&di=2d3188e702f19e9d64277641b2ab57da&imgtype=0&src=http%3A%2F%2Fimgq.duitang.com%2Fuploads%2Fitem%2F201506%2F13%2F20150613230428_Y4MxS.thumb.700_0.jpeg",
+                "/static/images/indexLove.jpg",
 
             transitlist: [
                 { img1: "/static/images/29路1.png" },

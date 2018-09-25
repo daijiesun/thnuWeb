@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <v-page :setting="pageSet" @page-change="pageChange"></v-page>
+        <!-- <v-page :setting="pageSet" @page-change="pageChange"></v-page> -->
     </div>
 </template>
 <script>
@@ -57,7 +57,7 @@ export default {
         }
     },
     created(){
-   
+        this.pageChange();
     },
     methods: {
        

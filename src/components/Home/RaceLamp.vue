@@ -15,24 +15,6 @@ export default {
          intervalId:null,
      }  
   },
-//   created(){
-//       this.getLamp();
-//   },
-//   methods: {
-//       getLamp(){
-//           console.log("11111");
-//           this.intervalId = setInterval(() => {
-//           var start = this.info.substring(0, 1)
-//           // 获取到 后面的所有字符
-//           var end = this.info.substring(1)
-//           // 重新拼接得到新的字符串，并赋值给 this.info
-//         //   var getWidth = $("#row").width();
-//         //   console.log(getWidth);
-//           this.info = end + start ;
-//         }, 400)
-
-//       }
-//   }, 
 }
 </script>
 <style scoped>

@@ -19,6 +19,12 @@ export default {
 </script>
 <style scoped>
 .thnu_Navigation {
+  padding: 0;
+  margin: 0;
+}
+.row{
+    padding: 0;
+    margin: 0;
 }
 </style>
 

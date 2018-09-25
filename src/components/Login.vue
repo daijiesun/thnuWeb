@@ -58,7 +58,7 @@ export default {
                         this.$loading.close();
                         this.$toast.center(res.data.message);
                         // window.location = "/";
-                        this.$router.push("/personalCenter");
+                        // this.$router.push({path: '/personalCenter'});
                     } else {
                         this.$loading.close();
                         this.$toast.center(res.data.message);

@@ -4,10 +4,10 @@
         <form id="my-form">
             <div class="form-group">
                 <label for="content" class="">请开始的你的表演！</label>
-                <textarea type="password" class="form-control" id="content" name="content" rows=10 v-model="formData.content" placeholder="描述你心中的女神" required/>
+                <textarea type="password" class="form-control" id="content" name="content" rows=10 v-model="formData.content" placeholder="请输入要发表的内容" required/>
             </div>
             <div class="form-group">
-                <label for="exampleInputFile" class="text-danger">女神照片帖这里哦
+                <label for="exampleInputFile" class="text-danger">神照帖这里哦!
                     <span class="glyphicon glyphicon-hand-down"></span>
                 </label>
                 <input type="file" id="img" name="files" @change="uploadDone" multiple>
@@ -42,6 +42,7 @@ export default {
     methods: {
         //实现预览
         uploadDone(e) {
+            this.imageList = [];
             const list = document.getElementById("img").files;
             const liObj = document.getElementById("images");
             for (var i = 0; i < list.length; i++) {
@@ -66,7 +67,7 @@ export default {
             // this.sumData.append("content", this.formData.content);
             var form = document.getElementById("my-form");
             var sumData = new FormData(form);
-            sumData.append("userName", "userInfo.userName");
+            sumData.append("userName", this.userInfo.userName);
             this.$loading("发布中...");
             const head = {
                 header: {

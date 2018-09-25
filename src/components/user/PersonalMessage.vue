@@ -10,7 +10,9 @@ export default {
         return {};
     },
     computed: {
-        userInfo: "user/getUserInfo"
+        ...mapGetters({
+            userInfo: "user/getUserInfo"
+        })
     }
 };
 </script>

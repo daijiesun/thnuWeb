@@ -4,7 +4,7 @@
         <form id="my-form">
             <div class="form-group">
                 <label for="content" class="">商品描述</label>
-                <textarea type="text" class="form-control" id="content" name="content" rows=4 v-model="formData.content" placeholder="请描述你的商品"/>
+                <textarea type="text" class="form-control" id="content" name="content" rows=4 v-model="formData.content" placeholder="请描述你的商品" />
             </div>
             <div class="form-group">
                 <label for="tel" class="">联系方式</label>
@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             formData: {},
-            imageList: [],
+            imageList: []
             //这里定义表单数据，方便后面在不同方法中添加数据
             // sumData: new FormData()
         };
@@ -46,6 +46,7 @@ export default {
     methods: {
         //实现预览
         uploadDone(e) {
+            this.imageList = [];
             const list = document.getElementById("img").files;
             const liObj = document.getElementById("images");
             for (var i = 0; i < list.length; i++) {
@@ -74,9 +75,9 @@ export default {
                 this.$toast.center("输入内容不能为空");
                 return;
             }
-            var form = document.getElementById("my-form")
-            var sumData = new FormData(form)
-            sumData.append("userName", "userInfo.userName");
+            var form = document.getElementById("my-form");
+            var sumData = new FormData(form);
+            sumData.append("userName", this.userInfo.userName);
             this.$loading("发布中...");
             const head = {
                 header: {

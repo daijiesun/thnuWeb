@@ -4,7 +4,7 @@
         <form class="addUser">
             <div class="form-group">
                 <label for="userName">用户名</label>
-                <input type="text" class="form-control" id="userName" placeholder="用户名" v-model="registerForm.userName">
+                <input type="text" class="form-control" id="userName" placeholder="注册成功后不能修改!" v-model="registerForm.userName">
             </div>
             <div class="form-group">
                 <label for="email">邮箱</label>

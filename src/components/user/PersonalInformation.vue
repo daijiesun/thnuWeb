@@ -3,10 +3,10 @@
     <div class="container-fluid">
         <div class="row">
             <form class="per_info" id="myform">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="userName">用户名</label>
-                    <input type="text" class="form-control" id="userName" name="userName" v-model="userInfo.userName">
-                </div>
+                    <input type="text" class="form-control" id="userName" name="userName" v-model="userInfo.userName" readonly="readonly">
+                </div> -->
                 <div class="form-group">
                     <label for="email">邮箱</label>
                     <input type="email" class="form-control" id="email" name="email" v-model="userInfo.email">

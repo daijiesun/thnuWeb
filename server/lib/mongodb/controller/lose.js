@@ -1,4 +1,4 @@
-const LoseModuls = require('../models/lose')
+const LoseModuls = require('../models/Lose')
 const date = new Date()
 const _ = require('lodash')
 const fs = require('fs')

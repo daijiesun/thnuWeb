@@ -31,7 +31,7 @@ export default {
         return {
             formData: {},
             imageList: [],
-            tag:{}
+            tag: {}
         };
     },
     mounted() {
@@ -45,7 +45,8 @@ export default {
     methods: {
         //实现预览
         uploadDone(e) {
-             this.tag = e
+            this.imageList = [];
+            this.tag = e;
             const list = document.getElementById("img").files;
             const liObj = document.getElementById("images");
             for (var i = 0; i < list.length; i++) {
@@ -56,11 +57,11 @@ export default {
         },
         upload() {
             //获取表单数据
-            var form = document.getElementById("myForm");  
-            //创建表单对象，并添加数据          
-            var sumData = new FormData(form)  
-            //添加用户名          
-            sumData.append("userName", "userInfo.userName");
+            var form = document.getElementById("myForm");
+            //创建表单对象，并添加数据
+            var sumData = new FormData(form);
+            //添加用户名
+            sumData.append("userName", this.userInfo.userName);
             // console.log(sumData);
             this.$loading("发布中...");
             const head = {

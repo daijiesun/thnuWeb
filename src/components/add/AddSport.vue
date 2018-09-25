@@ -38,7 +38,7 @@ export default {
                 this.$toast.center("输入内容不能为空");
                 return;
             }
-            this.formData.userName = "userInfo.userName";
+            this.formData.userName = this.userInfo.userName;
             this.$loading("发布中...");
             this.axios
                 .post("/user/addSport", this.formData)

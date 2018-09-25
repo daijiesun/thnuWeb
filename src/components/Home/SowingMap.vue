@@ -8,7 +8,7 @@
         </ol>      
     <!-- 轮播图图片及其链接 -->
         <div class="carousel-inner" role="listbox">
-            <div v-for="(img,index) in list" :key="img.id" class="item" :class="[index == 0 ? 'active' : '']">
+            <div v-for="(img,index) in list" :key="img.index" class="item" :class="[index == 0 ? 'active' : '']">
                 <div v-if="isMobile">
                     <a href="#" class="PC_img hidden-xs hidden-sm" ><img :src="img.PCurl" alt=""></a>
                 </div>
@@ -33,9 +33,9 @@
             return{
                 isMobile:"",
                 list:[
-                    {PCurl:'http://www.thnu.edu.cn/publish/upload/2018/8/1310523987.jpg',Murl:'http://www.thnu.edu.cn/publish/upload/2018/8/1310523987.jpg',id:0},
-                    {PCurl:'http://www.thnu.edu.cn/publish/upload/2018/6/591012125.jpg',Murl:'http://www.thnu.edu.cn/publish/upload/2018/6/591012125.jpg',id:1},
-                    {PCurl:'http://www.thnu.edu.cn/publish/upload/2018/6/48911884.jpg',Murl:'http://www.thnu.edu.cn/publish/upload/2018/6/48911884.jpg',id:2},
+                    {PCurl:'/static/images/lunbo01.jpg',Murl:'/static/images/lunbo01.jpg'},
+                    {PCurl:'/static/images/lunbo02.jpg',Murl:'/static/images/lunbo02.jpg'},
+                    {PCurl:'/static/images/lunbo03.jpg',Murl:'/static/images/lunbo03.jpg'},
                 ],
             };
         },

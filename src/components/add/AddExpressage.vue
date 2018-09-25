@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         upload() {
-            this.formData.userName = "userInfo.userName";
+            this.formData.userName = this.userInfo.userName;
             this.$loading("发布中...");
             this.axios
                 .post("/user/addExp", this.formData)

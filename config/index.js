@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       //设置跨域
       '/': {
-        target: 'http://0.0.0.0:3000/',
+        target: 'http://0.0.0.0:80/',
         changeOrigin: true,
         pathRewrite: {
             '^/': ''
